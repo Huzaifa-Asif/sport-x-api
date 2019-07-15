@@ -10,10 +10,10 @@ module.exports.getServiceCategory = (callback, limit) => {
 module.exports.addServiceCategory = (serviceCategoryform, callback) => {
     let record=new serviceCategory();
     record.name=serviceCategoryform.name;
-    
+
     if(serviceCategoryform.picture)
     record.picture=functions.uploadPicture(record.name,serviceCategoryform.picture)
-    
+
     record.save(callback);
 }
 
@@ -25,7 +25,7 @@ module.exports.updateServiceCategory = (name, serviceCategoryform, options, call
     serviceCategory.findOneAndUpdate(query, {picture:serviceCategoryform.picture}, options, callback);
 }
 
-// Delete serviceCategory   
+// Delete serviceCategory
 module.exports.removeServiceCategory = (name, callback) => {
     var query = {name: name};
     var filepath='uploads/'+name+'.png';
