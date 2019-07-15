@@ -19,7 +19,7 @@ module.exports.getServiceProviderById = (id ,callback) =>  {
 // Get serviceProvider By category
 module.exports.getServiceProviderByCategory = (category ,callback) =>  {
     serviceProvider.
-    find({ category: category }).
+    find({ category: {$regex: category , $options: 'i'}}).
     where('state').equals('approved').
     exec(callback);
 }
