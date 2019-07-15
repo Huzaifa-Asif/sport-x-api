@@ -43,23 +43,23 @@ module.exports.login = (email,password,res) => {
             {
                 return res.status(500).json({Message:"Error in Connecting to DB",status:false});
             }
-           
+
             else if(result)
             {
-            console.log(result.password);
-            if(record.comparePassword(password,result.password))
-            {
-                var result1 = result.toObject();
-                result1.status = true;
-                return res.json(result1);
+            		console.log(result.password);
+            		if(record.comparePassword(password,result.password))
+            			{
+                	var result1 = result.toObject();
+                	result1.status = true;
+                	return res.json(result1);
+            			}
+            		else
+            		{
+                	return res.status(500).json({Message:"Wrong Email or Password",status:false});
+            		}
+
             }
-            else
-            {
-                return res.status(500).json({Message:"Wrong Email or Password",status:false});
-            }
-            
-            }
-           
+
         });
 }
 
@@ -101,7 +101,7 @@ module.exports.addServiceProvider = (serviceProviderform, callback) => {
     record.contact=serviceProviderform.contact;
     record.email=serviceProviderform.email;
     record.password=record.hashPassword(serviceProviderform.password);
-    
+
     if(serviceProviderform.picture_profile)
     record.picture_profile=functions.uploadPicture(record.email+'_picture_profile',serviceProviderform.picture_profile);
     if(serviceProviderform.picture_cover)
@@ -137,10 +137,10 @@ module.exports.updateServiceProvider = (email, serviceProviderform, options, cal
     if(serviceProviderform.picture_5)
     serviceProviderform.picture_5=functions.uploadPicture(email+'_picture_5',serviceProviderform.picture_5);
     serviceProvider.findOneAndUpdate(query, { $set: serviceProviderform},options,callback);
-    
+
 }
 
-// Delete serviceProvider   
+// Delete serviceProvider
 module.exports.removeServiceProvider = (id, callback) => {
     var query = {_id: id};
     serviceProvider.remove(query, callback);

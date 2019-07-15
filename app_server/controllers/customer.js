@@ -17,7 +17,10 @@ module.exports.login = (email,password,res) => {
     customer.findOne({email:email},function(err,result)
     {
         if (err)
-        return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+				{
+					return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+				}
+        
         else if(result)
         {
             if(record.comparePassword(password,result.password))
@@ -25,10 +28,13 @@ module.exports.login = (email,password,res) => {
                     var result1 = result.toObject();
                     result1.status = true;
                     return res.json(result1);
-                    
+
                 }
             else
-                return res.status(500).json({Message:"Wrong Email or Password",status:false});
+						{
+							return res.status(500).json({Message:"Wrong Email or Password",status:false});
+						}
+
         }
     });
 }
@@ -45,10 +51,10 @@ module.exports.addCustomer = (customerform, callback) => {
     record.contact=customerform.contact;
     record.email=customerform.email;
     record.password=record.hashPassword(customerform.password);
-    
+
     if(customerform.picture)
     record.picture=functions.uploadPicture(record.email,customerform.picture)
-    
+
     record.save(callback);
 }
 
@@ -60,7 +66,7 @@ module.exports.updateCustomer = (email, customerform, options, callback) => {
     customer.findOneAndUpdate(query, customerform, options, callback);
 }
 
-// Delete Customer   
+// Delete Customer
 module.exports.removeCustomer = (id, callback) => {
     var query = {_id: id};
     customer.remove(query, callback);

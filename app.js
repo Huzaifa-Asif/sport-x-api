@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cloudinary = require('cloudinary');
 const mongoose = require('mongoose');
 var routeRouter = require('./app_server/routes/route.js');
 
@@ -48,6 +49,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// cloudinary parameters
+cloudinary.config({
+    cloud_name: 'the-a-web',
+    api_key: '818857629118551',
+    api_secret: 'kv5t1reOY_mIfiiID7v-5mhLAps' 
+  });
 
 
 module.exports = app;
