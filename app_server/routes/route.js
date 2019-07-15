@@ -20,7 +20,7 @@ var tournament = require('../controllers/tournament.js');
 
 router.get('/',function(req,res)
 {
-    res.json({message:"Hello Bitches"})
+    res.json({message:"Welcome to Sport-X Backend"})
 });
 
 
