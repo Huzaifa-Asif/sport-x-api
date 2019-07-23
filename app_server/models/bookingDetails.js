@@ -23,6 +23,12 @@ const bookingDetailsSchema = new schema({
     },
     customerEmail:{
         type:String
+    },
+    customerName:{
+        type:String
+    },
+    customerNumber:{
+        type:String
     }
 })
 
