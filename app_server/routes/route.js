@@ -377,6 +377,25 @@ router.get('/customerPendingBookings/:email', bookingDetails.customerPendingBook
 // Completed Bookings of Customer
 router.get('/customerCompletedBookings/:email', bookingDetails.customerCompletedBookings);
 
+// Get Booking Details by Email - Service Provider
+router.get('/get_bookingdetails/:email', function (req, res) {
+    bookingDetails.getBookingDetailsByEmail(req.params.email,function (err, result) {
+        if (err)
+              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+
+     return res.json(result);
+
+    });
+
+});
+
+
+// Ratings
+router.post('/post_rating', ratingAndFeedback.post_rating);
+
+// Find Rating of a Job
+router.get('/findRating/:id', ratingAndFeedback.findRating);
+
 
 
 

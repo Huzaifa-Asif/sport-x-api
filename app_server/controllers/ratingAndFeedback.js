@@ -37,3 +37,39 @@ module.exports.removeRatingAndFeedback = (id, callback) => {
     var query = {_id: id};
     ratingAndFeedback.remove(query, callback);
 }
+
+
+
+// Post Rating
+module.exports.post_rating = (req, res) => {
+    let rating = new ratingAndFeedback({
+        rating: req.body.rating,
+        feedback: req.body.feedback,
+        date: req.body.date,
+        serviceProviderEmail: req.body.serviceProviderEmail,
+        customerEmail: req.body.customerEmail,
+        jobId: req.body.jobId
+    });
+
+    rating.save((err) => {
+        if(err) {
+            res.json({
+                status: "failed",
+                message: "Rating Not Posted!"
+            });
+        }
+        else {
+            res.json({
+                status: "success",
+                message: "Rating Posted Successfully!"
+            });
+        }
+    });
+}
+
+// find rating using job_Id
+exports.findRating = (req, res) => {
+    ratingAndFeedback.find({jobId: req.params.id}).then(result => res.json(result)).catch(err => {
+        res.send("something went wrong!")
+    })
+}

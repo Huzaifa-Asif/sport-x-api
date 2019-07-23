@@ -6,18 +6,21 @@ const schema = mongoose.Schema;
 
 const ratingAndFeedbackSchema = new schema({
     rating:{
-        type:Number
+        type:String
     },
     feedback:{
         type:String
     },
     date:{
-        type:Date
-    },
-    serviceProviderId:{
         type:String
     },
-    customerId:{
+    serviceProviderEmail:{
+        type:String
+    },
+    customerEmail:{
+        type:String
+    },
+    jobId:{
         type:String
     }
 })
