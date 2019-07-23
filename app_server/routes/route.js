@@ -361,6 +361,26 @@ router.delete('/delete_bookingDetails/:id', function (req, res) {
 });
 
 
+
+// Update Booking Status
+router.patch('/update_bookingState/:id', bookingDetails.updateBookingState);
+
+// Completed Bookings of Vendor
+router.get('/completedBookings/:email', bookingDetails.completedBookings);
+
+// Pending Bookings of Vendor
+router.get('/pendingBookings/:email', bookingDetails.pendingBookings);
+
+// Pending Bookings of Customer
+router.get('/customerPendingBookings/:email', bookingDetails.customerPendingBookings);
+
+// Completed Bookings of Customer
+router.get('/customerCompletedBookings/:email', bookingDetails.customerCompletedBookings);
+
+
+
+
+
 // /* GET home page. */
 // router.get('/', function (req, res, next) {
 //     res.send(`
