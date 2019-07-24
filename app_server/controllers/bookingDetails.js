@@ -53,17 +53,8 @@ module.exports.updateBookingState = (req, res) => {
 }
 
 
-// PROVIDER ALL COMPLETED JOBS
-module.exports.completedBookings = (req, res) => {
-    bookingDetails.find( { $and: [ { state: "completed" }, {serviceProviderEmail: req.params.email}] })
-    .then(result => res.json(result)).catch(err => res.json({
-        status: "failed",
-        message: "Request Failed"
-    }));
-}
-
 // PROVIDER ALL Pending JOBS
-module.exports.pendingBookings = (req, res) => {
+module.exports.serviceProviderPendingBookings = (req, res) => {
     bookingDetails.find( { $and: [ { state: "pending" }, {serviceProviderEmail: req.params.email}] })
     .then(result => res.json(result)).catch(err => res.json({
         status: "failed",
@@ -71,8 +62,40 @@ module.exports.pendingBookings = (req, res) => {
     }));
 }
 
+
+// PROVIDER ALL In Progress JOBS
+module.exports.serviceProviderInProgressBookings = (req, res) => {
+    bookingDetails.find( { $and: [ { state: "accepted" }, {serviceProviderEmail: req.params.email}] })
+    .then(result => res.json(result)).catch(err => res.json({
+        status: "failed",
+        message: "Request Failed"
+    }));
+}
+
+
+// PROVIDER ALL COMPLETED JOBS
+module.exports.serviceProviderCompletedBookings = (req, res) => {
+    bookingDetails.find( { $and: [ { state: "completed" }, {serviceProviderEmail: req.params.email}] })
+    .then(result => res.json(result)).catch(err => res.json({
+        status: "failed",
+        message: "Request Failed"
+    }));
+}
+
+
+
 // CUSTOMER ALL Pending JOBS
 module.exports.customerPendingBookings = (req, res) => {
+    bookingDetails.find( { $and: [ { state: "pending" }, {customerEmail: req.params.email}] })
+    .then(result => res.json(result)).catch(err => res.json({
+        status: "failed",
+        message: "Request Failed"
+    }));
+}
+
+
+// CUSTOMER ALL In Progress JOBS
+module.exports.customerInProgressBookings = (req, res) => {
     bookingDetails.find( { $and: [ { state: "accepted" }, {customerEmail: req.params.email}] })
     .then(result => res.json(result)).catch(err => res.json({
         status: "failed",

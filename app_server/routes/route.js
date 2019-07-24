@@ -381,14 +381,21 @@ router.delete('/delete_bookingDetails/:id', function (req, res) {
 // Update Booking Status
 router.patch('/update_bookingState/:id', bookingDetails.updateBookingState);
 
-// Completed Bookings of Vendor
-router.get('/completedBookings/:email', bookingDetails.completedBookings);
-
 // Pending Bookings of Vendor
-router.get('/pendingBookings/:email', bookingDetails.pendingBookings);
+router.get('/serviceProviderPendingBookings/:email', bookingDetails.serviceProviderPendingBookings);
+
+// In Progress Bookings of Vendor
+router.get('/serviceProviderInProgressBookings/:email', bookingDetails.serviceProviderInProgressBookings);
+
+// Completed Bookings of Vendor
+router.get('/serviceProviderCompletedBookings/:email', bookingDetails.serviceProviderCompletedBookings);
+
 
 // Pending Bookings of Customer
 router.get('/customerPendingBookings/:email', bookingDetails.customerPendingBookings);
+
+// In Progress Bookings of Customer
+router.get('/customerInProgressBookings/:email', bookingDetails.customerInProgressBookings);
 
 // Completed Bookings of Customer
 router.get('/customerCompletedBookings/:email', bookingDetails.customerCompletedBookings);
