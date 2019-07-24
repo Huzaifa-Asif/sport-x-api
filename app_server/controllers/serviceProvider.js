@@ -24,7 +24,7 @@ module.exports.getServiceProviderByCategory = (category ,callback) =>  {
     exec(callback);
 }
 
-// Get serviceProvider By name
+// Get serviceProvider By email
 module.exports.getServiceProviderByEmail = (email ,callback) =>  {
     serviceProvider.
     find({name: {$regex: email , $options: 'i'}}).
