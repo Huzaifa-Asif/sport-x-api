@@ -21,6 +21,12 @@ const bookingDetailsSchema = new schema({
     serviceProviderEmail:{
         type:String
     },
+    serviceProviderName:{
+        type:String
+    },
+    serviceProviderNumber:{
+        type:String
+    },
     customerEmail:{
         type:String
     },

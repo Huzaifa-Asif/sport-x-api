@@ -162,9 +162,9 @@ router.get('/search/serviceProviderByCategory/:category', function (req, res) {
 });
 
 
-// Get Service Provider by name
-router.get('/search/serviceProviderByName/:name', function (req, res) {
-    serviceProvider.getServiceProviderByName(req.params.name,function (err, serviceProviders) {
+// Get Service Provider by email
+router.get('/search/serviceProviderByName/:email', function (req, res) {
+    serviceProvider.getServiceProviderByName(req.params.email,function (err, serviceProviders) {
         if (err) {
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
         }
