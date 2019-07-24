@@ -163,8 +163,24 @@ router.get('/search/serviceProviderByCategory/:category', function (req, res) {
 
 
 // Get Service Provider by email
-router.get('/search/serviceProviderByName/:email', function (req, res) {
-    serviceProvider.getServiceProviderByName(req.params.email,function (err, serviceProviders) {
+router.get('/search/serviceProviderByEmail/:email', function (req, res) {
+    serviceProvider.getServiceProviderByEmail(req.params.email,function (err, serviceProviders) {
+        if (err) {
+            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+        else if(serviceProviders)
+        return res.json(serviceProviders);
+        else
+        return res.status(500).json({Message:"No service Providers found with Names like "+req.params.name,status:false});
+
+    });
+
+});
+
+
+// Get Service Provider by name
+router.get('/search/serviceProviderByName/:name', function (req, res) {
+    serviceProvider.getServiceProviderByName(req.params.name,function (err, serviceProviders) {
         if (err) {
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
         }
