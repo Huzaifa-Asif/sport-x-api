@@ -73,7 +73,7 @@ module.exports.pendingBookings = (req, res) => {
 
 // CUSTOMER ALL Pending JOBS
 module.exports.customerPendingBookings = (req, res) => {
-    bookingDetails.find( { $and: [ { state: "pending" }, {customerEmail: req.params.email}] })
+    bookingDetails.find( { $and: [ { state: "accepted" }, {customerEmail: req.params.email}] })
     .then(result => res.json(result)).catch(err => res.json({
         status: "failed",
         message: "Request Failed"
