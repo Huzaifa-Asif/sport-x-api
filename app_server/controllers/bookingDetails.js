@@ -45,7 +45,7 @@ module.exports.updateBookingState = (req, res) => {
     bookingDetails.findByIdAndUpdate(req.params.id, {$set: {"state":req.body.status}})
     .then(() => res.json({
         status: "success",
-        message: "Request Accepted"
+        message: "Status Changed"
     })).catch(err => res.json({
         status: "failed",
         message: "Request Failed"
