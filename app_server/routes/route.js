@@ -47,19 +47,31 @@ router.post('/signup_customer', function (req, res) {
     customer.getCustomerByEmail(customerform.email,function(err,result)
     {
         if(err)
-        return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        {
+            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+        
         else
         {
             if(result)
-            return res.json({Message:"Email Already Exists",status:false});
+            {
+                return res.json({Message:"Email Already Exists",status:false});
+            }
+        
             else
             {
                 serviceProvider.getServiceProviderByEmail(customerform.email,function(err,result)
                 {
                     if(err)
-                    return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+                    {
+                        return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+                    }
+                    
                     else if(result)
-                    return res.json({Message:"Email Already Exists",status:false});
+                    {
+                        return res.json({Message:"Email Already Exists",status:false});
+                    }
+                   
                     else
                     {
                         customer.addCustomer(customerform,function (err, customer)
