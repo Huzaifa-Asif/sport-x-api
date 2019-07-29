@@ -1,6 +1,17 @@
 var customer =require('../models/customer.js');
 var functions =require('../controllers/functions.js');
+const cloudinary = require('cloudinary');
 
+var imgUrl = null;
+var urlImage = null;
+
+async function uploadImage(image){
+    imgUrl = await cloudinary.uploader.upload(image, {folder: "user_images/"}, function(result){
+        console.log(result.url);
+        return result.url;
+        });
+    return imgUrl;
+}
 
 // Get Customer
 module.exports.getCustomer = (callback, limit) => {
@@ -53,7 +64,15 @@ module.exports.addCustomer = (customerform, callback) => {
     record.password=record.hashPassword(customerform.password);
 
     if(customerform.picture)
-    record.picture=functions.uploadPicture(record.email,customerform.picture)
+    {
+        await uploadImage(imageFile);
+        urlImage = JSON.stringify(imgUrl.url);
+        record.picture=urlImage;
+    }
+    else{
+        record.picture="";
+    }
+    
 
     record.save(callback);
 }
@@ -62,7 +81,16 @@ module.exports.addCustomer = (customerform, callback) => {
 module.exports.updateCustomer = (email, customerform, options, callback) => {
     var query = {email: email};
     if(customerform.picture)
-    customerform.picture=functions.uploadPicture(email,customerform.picture);
+    {
+            await uploadImage(imageFile);
+            urlImage = JSON.stringify(imgUrl.url);
+            record.picture=urlImage;      
+    }
+    else
+    {
+        record.picture="";
+    }
+   
     customer.findOneAndUpdate(query, customerform, options, callback);
 }
 
