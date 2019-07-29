@@ -56,7 +56,7 @@ module.exports.getCustomerById = (id ,callback) =>  {
 }
 
 // Add Customer
-module.exports.addCustomer = (customerform, callback) => {
+module.exports.addCustomer = async (customerform, callback) => {
     let record=new customer();
     record.name=customerform.name;
     record.contact=customerform.contact;
@@ -78,7 +78,7 @@ module.exports.addCustomer = (customerform, callback) => {
 }
 
 // Update Customer
-module.exports.updateCustomer = (email, customerform, options, callback) => {
+module.exports.updateCustomer = async (email, customerform, options, callback) => {
     var query = {email: email};
     if(customerform.picture)
     {
