@@ -99,7 +99,7 @@ module.exports.getServiceProviderByLocation = (lat,long,maxDistance ,callback) =
 }
 
 // Add serviceProvider
-module.exports.addServiceProvider = (serviceProviderform, callback) => {
+module.exports.addServiceProvider = async (serviceProviderform, callback) => {
     let record=new serviceProvider();
     record.name=serviceProviderform.name;
     record.contact=serviceProviderform.contact;
@@ -225,7 +225,7 @@ module.exports.addServiceProvider = (serviceProviderform, callback) => {
 }
 
 // Update serviceProvider
-module.exports.updateServiceProvider = (email, serviceProviderform, options, callback) => {
+module.exports.updateServiceProvider = async (email, serviceProviderform, options, callback) => {
     var query = {email: email};
     // if(serviceProviderform.picture_profile)
     // serviceProviderform.picture_profile=functions.uploadPicture(email+'_picture_profile',serviceProviderform.picture_profile);
