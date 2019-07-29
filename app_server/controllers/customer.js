@@ -10,7 +10,7 @@ module.exports.getCustomer = (callback, limit) => {
 }
 
 // Check email exists
-module.exports.checkcCustomerEmail = (email,callback) => {
+module.exports.checkCustomerEmail = (email,callback) => {
 	customer.findOne({email:email},callback);
 }
 // Login
@@ -34,9 +34,13 @@ module.exports.login = (email,password,res) => {
                 }
             else
 						{
-							return res.status(500).json({Message:"Wrong Email or Password",status:false});
+							return res.status(500).json({Message:"Wrong Password",status:false});
 						}
 
+        }
+        else
+        {
+            return res.status(500).json({Message:"Wrong Email",status:false});
         }
     });
 }

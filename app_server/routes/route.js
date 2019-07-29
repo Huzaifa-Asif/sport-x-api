@@ -16,6 +16,7 @@ var serviceCategory = require('../controllers/serviceCategory.js');
 var serviceProvider = require('../controllers/serviceProvider.js');
 var team = require('../controllers/team.js');
 var tournament = require('../controllers/tournament.js');
+var functions =require('../controllers/functions.js');
 
 
 router.get('/',function(req,res)
@@ -141,9 +142,8 @@ router.post('/signup_serviceProvider', function (req, res) {
 router.post('/login', function (req, res) {
     let email=req.body.email;
     let password=req.body.password;
-    customer.login(email,password,res);
-    serviceProvider.login(email,password,res);
-
+    functions.login(email,password,res);
+    
 });
 
 //Login for Admin
