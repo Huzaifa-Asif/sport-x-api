@@ -1,6 +1,21 @@
 var customer =require('../models/customer.js');
 var functions =require('../controllers/functions.js');
+<<<<<<< HEAD
 
+=======
+const cloudinary = require('cloudinary');
+
+var imgUrl = null;
+var urlImage = null;
+
+async function uploadImage(image){
+    imgUrl = await cloudinary.uploader.upload(image, {folder: "user_images/"}, function(result){
+        console.log(result.url);
+        return result.url;
+        });
+    return imgUrl;
+}
+>>>>>>> 153f1072a795969b4e71564b7489c2c0d5892267
 
 // Get Customer
 module.exports.getCustomer = (callback, limit) => {
@@ -45,7 +60,11 @@ module.exports.getCustomerById = (id ,callback) =>  {
 }
 
 // Add Customer
+<<<<<<< HEAD
 module.exports.addCustomer = (customerform, callback) => {
+=======
+module.exports.addCustomer = async (customerform, callback) => {
+>>>>>>> 153f1072a795969b4e71564b7489c2c0d5892267
     let record=new customer();
     record.name=customerform.name;
     record.contact=customerform.contact;
@@ -53,16 +72,44 @@ module.exports.addCustomer = (customerform, callback) => {
     record.password=record.hashPassword(customerform.password);
 
     if(customerform.picture)
+<<<<<<< HEAD
     record.picture=functions.uploadPicture(record.email,customerform.picture)
+=======
+    {
+        await uploadImage(customerform.picture);
+        urlImage = JSON.stringify(imgUrl.url);
+        record.picture=urlImage;
+    }
+    else{
+        record.picture="";
+    }
+    
+>>>>>>> 153f1072a795969b4e71564b7489c2c0d5892267
 
     record.save(callback);
 }
 
 // Update Customer
+<<<<<<< HEAD
 module.exports.updateCustomer = (email, customerform, options, callback) => {
     var query = {email: email};
     if(customerform.picture)
     customerform.picture=functions.uploadPicture(email,customerform.picture);
+=======
+module.exports.updateCustomer = async (email, customerform, options, callback) => {
+    var query = {email: email};
+    if(customerform.picture)
+    {
+            await uploadImage(customerform.picture);
+            urlImage = JSON.stringify(imgUrl.url);
+            record.picture=urlImage;      
+    }
+    else
+    {
+        record.picture="";
+    }
+   
+>>>>>>> 153f1072a795969b4e71564b7489c2c0d5892267
     customer.findOneAndUpdate(query, customerform, options, callback);
 }
 

@@ -1,3 +1,5 @@
+////SPORTX
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -8,7 +10,6 @@ const mongoose = require('mongoose');
 var routeRouter = require('./app_server/routes/route.js');
 
 var cors = require('cors')
-//SPort-X 1234
 
 var app = express();
 app.use(cors())
