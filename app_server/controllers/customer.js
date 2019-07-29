@@ -85,9 +85,17 @@ module.exports.updateCustomer = async (email, customerform, options, callback) =
     var query = {email: email};
     if(customerform.picture)
     {
-            await uploadImage(customerform.picture);
-            urlImage = JSON.stringify(imgUrl.url);
-            record.picture=urlImage;      
+        try
+        {
+            imgUrl=await functions.uploadPicture(customerform.picture);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+        //urlImage = JSON(imgUrl.url);
+        record.picture=imgUrl.url;
     }
     else
     {

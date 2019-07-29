@@ -103,7 +103,7 @@ module.exports.getServiceProviderByLocation = (lat,long,maxDistance ,callback) =
 }
 
 // Add serviceProvider
-module.exports.addServiceProvider = (serviceProviderform, callback) => {
+module.exports.addServiceProvider = async (serviceProviderform, callback) => {
     let record=new serviceProvider();
     record.name=serviceProviderform.name;
     record.contact=serviceProviderform.contact;
@@ -116,39 +116,245 @@ module.exports.addServiceProvider = (serviceProviderform, callback) => {
     record.password=record.hashPassword(serviceProviderform.password);
 
     if(serviceProviderform.picture_profile)
-    record.picture_profile=functions.uploadPicture(record.email+'_picture_profile',serviceProviderform.picture_profile);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_profile);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        record.picture_profile=imgUrl.url;
+       
+    }
+    
     if(serviceProviderform.picture_cover)
-    record.picture_cover=functions.uploadPicture(record.email+'_picture_cover',serviceProviderform.picture_cover);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_cover);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        record.picture_cover=imgUrl.url;
+       
+    }
+    
     if(serviceProviderform.picture_1)
-    record.picture_1=functions.uploadPicture(record.email+'_picture_1',serviceProviderform.picture_1);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_1);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        record.picture_1=imgUrl.url;
+
+    }
+    
     if(serviceProviderform.picture_2)
-    record.picture_2=functions.uploadPicture(record.email+'_picture_2',serviceProviderform.picture_2);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_2);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        record.picture_2=imgUrl.url;
+
+    }
+  
     if(serviceProviderform.picture_3)
-    record.picture_3=functions.uploadPicture(record.email+'_picture_3',serviceProviderform.picture_3);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_3);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        record.picture_3=imgUrl.url;
+
+    }
+    
     if(serviceProviderform.picture_4)
-    record.picture_4=functions.uploadPicture(record.email+'_picture_4',serviceProviderform.picture_4);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_4);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        record.picture_4=imgUrl.url;
+    }
+    
     if(serviceProviderform.picture_5)
-    record.picture_5=functions.uploadPicture(record.email+'_picture_5',serviceProviderform.picture_5);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_5);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        record.picture_5=imgUrl.url;
+    }
+    
     record.save(callback);
 }
 
 // Update serviceProvider
-module.exports.updateServiceProvider = (email, serviceProviderform, options, callback) => {
+module.exports.updateServiceProvider = async (email, serviceProviderform, options, callback) => {
     var query = {email: email};
+    // if(serviceProviderform.picture_profile)
+    // serviceProviderform.picture_profile=functions.uploadPicture(email+'_picture_profile',serviceProviderform.picture_profile);
+    // if(serviceProviderform.picture_cover)
+    // serviceProviderform.picture_cover=functions.uploadPicture(email+'_picture_cover',serviceProviderform.picture_cover);
+    // if(serviceProviderform.picture_1)
+    // serviceProviderform.picture_1=functions.uploadPicture(email+'_picture_1',serviceProviderform.picture_1);
+    // if(serviceProviderform.picture_2)
+    // serviceProviderform.picture_2=functions.uploadPicture(email+'_picture_2',serviceProviderform.picture_2);
+    // if(serviceProviderform.picture_3)
+    // serviceProviderform.picture_3=functions.uploadPicture(email+'_picture_3',serviceProviderform.picture_3);
+    // if(serviceProviderform.picture_4)
+    // serviceProviderform.picture_4=functions.uploadPicture(email+'_picture_4',serviceProviderform.picture_4);
+    // if(serviceProviderform.picture_5)
+    // serviceProviderform.picture_5=functions.uploadPicture(email+'_picture_5',serviceProviderform.picture_5);
+
     if(serviceProviderform.picture_profile)
-    serviceProviderform.picture_profile=functions.uploadPicture(email+'_picture_profile',serviceProviderform.picture_profile);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_profile);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        serviceProviderform.picture_profile=imgUrl.url;
+       
+    }
+    
     if(serviceProviderform.picture_cover)
-    serviceProviderform.picture_cover=functions.uploadPicture(email+'_picture_cover',serviceProviderform.picture_cover);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_cover);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        serviceProviderform.picture_cover=imgUrl.url;
+       
+    }
+    
     if(serviceProviderform.picture_1)
-    serviceProviderform.picture_1=functions.uploadPicture(email+'_picture_1',serviceProviderform.picture_1);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_1);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        serviceProviderform.picture_1=imgUrl.url;
+
+    }
+    
     if(serviceProviderform.picture_2)
-    serviceProviderform.picture_2=functions.uploadPicture(email+'_picture_2',serviceProviderform.picture_2);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_2);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        serviceProviderform.picture_2=imgUrl.url;
+
+    }
+  
     if(serviceProviderform.picture_3)
-    serviceProviderform.picture_3=functions.uploadPicture(email+'_picture_3',serviceProviderform.picture_3);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_3);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        serviceProviderform.picture_3=imgUrl.url;
+
+    }
+    
     if(serviceProviderform.picture_4)
-    serviceProviderform.picture_4=functions.uploadPicture(email+'_picture_4',serviceProviderform.picture_4);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_4);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        serviceProviderform.picture_4=imgUrl.url;
+    }
+    
     if(serviceProviderform.picture_5)
-    serviceProviderform.picture_5=functions.uploadPicture(email+'_picture_5',serviceProviderform.picture_5);
+    {
+        try
+        {
+            imgUrl=await functions.uploadPicture(serviceProviderform.picture_5);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+
+        serviceProviderform.picture_5=imgUrl.url;
+    }
     serviceProvider.findOneAndUpdate(query, { $set: serviceProviderform},options,callback);
 
 }
