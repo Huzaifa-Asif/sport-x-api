@@ -5,6 +5,10 @@ const schema = mongoose.Schema;
 // Team Schema
 
 const teamSchema = new schema({
+    state:{
+        type:String,
+        default:"Pending"
+    },
     name:{
         type:String
     },
@@ -14,7 +18,7 @@ const teamSchema = new schema({
     tournamentId:{
         type:String
     },
-    adderId:{
+    adderEmail:{
         type:String
     }
 })

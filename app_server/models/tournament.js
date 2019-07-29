@@ -5,6 +5,10 @@ const schema = mongoose.Schema;
 // Tournament Schema
 
 const tournamentSchema = new schema({
+    state:{
+        type:String,
+        default:"Inactive"
+    },
     name:{
         type:String
     },
@@ -23,7 +27,10 @@ const tournamentSchema = new schema({
     maxDays:{
         type:String
     },
-    serviceProvierId:{
+    serviceProviderEmail:{
+        type:String
+    },
+    adderEmail:{
         type:String
     }
 })

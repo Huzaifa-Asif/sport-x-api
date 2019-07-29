@@ -5,10 +5,27 @@ module.exports.getTournament = (callback, limit) => {
 	tournament.find(callback).limit(limit);
 }
 
+
 // Get tournament By ID
 module.exports.getTournamentById = (id ,callback) =>  {
 	tournament.findById(id, callback);
 }
+
+// Get tournament By State
+module.exports.getTournamentByState = (state ,callback) =>  {
+	tournament.find({state:state}, callback);
+}
+
+// Get tournaments By serviceProvider Email
+module.exports.getTournamentByServiceProviderEmail = (email ,callback) =>  {
+	tournament.find({serviceProviderEmail:email}, callback);
+}
+
+// Get tournaments By Adder Email
+module.exports.getTournamentByAdderEmail = (email ,callback) =>  {
+	tournament.find({adderEmail:email}, callback);
+}
+
 
 // Add tournament
 module.exports.addTournament = (tournamentform, callback) => {
@@ -25,7 +42,7 @@ module.exports.updateTournament = (id, tournamentform, options, callback) => {
         entryFee: tournamentform.entryFee,
         tournamentType:tournamentform.tournamentType,
         maxDays: tournamentform.maxDays,
-        serviceProvierId: tournamentform.serviceProvierId
+        serviceProviderEmail: tournamentform.serviceProviderEmail
     }
 
     tournament.findOneAndUpdate(query, update, options, callback);
