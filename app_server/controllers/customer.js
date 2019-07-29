@@ -58,7 +58,7 @@ module.exports.addCustomer = async (customerform, callback) => {
     {
         try
         {
-            imgUrl=await functions.uploadCustomerPicture(customerform.picture);
+            imgUrl=await functions.uploadPicture(customerform.picture);
         }
         catch(error)
         {
