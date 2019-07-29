@@ -65,7 +65,7 @@ module.exports.addCustomer = async (customerform, callback) => {
 
     if(customerform.picture)
     {
-        await uploadImage(imageFile);
+        await uploadImage(customerform.picture);
         urlImage = JSON.stringify(imgUrl.url);
         record.picture=urlImage;
     }
@@ -82,7 +82,7 @@ module.exports.updateCustomer = async (email, customerform, options, callback) =
     var query = {email: email};
     if(customerform.picture)
     {
-            await uploadImage(imageFile);
+            await uploadImage(customerform.picture);
             urlImage = JSON.stringify(imgUrl.url);
             record.picture=urlImage;      
     }
