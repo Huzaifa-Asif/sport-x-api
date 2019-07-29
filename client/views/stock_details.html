@@ -1,0 +1,38 @@
+<a class="btn btn-primary" href="#/stocks">Go Back</a>
+<br></br>
+<div class="panel panel-default" ng-init="getStock()">
+        <div class="panel-heading">
+              <h3 class="panel-title">{{stock.status}}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row"> 
+                <div class="col-md-4">
+                    <img src="{{stock.image}}">
+                </div>
+                <div class="col-md-8">
+                    <ul class="list-group">
+                        <li class="list-group-item">Price Demand: {{stock.price}}</li>
+                        <li class="list-group-item">Make: {{stock.make}}</li>
+                        <li class="list-group-item">Model: {{stock.model}}</li>
+                        <li class="list-group-item">Version: {{stock.version}}</li>
+                        <li class="list-group-item">Year of Make: {{stock.yom}}</li>
+                        <li class="list-group-item">Transmission: {{stock.transmission}}</li>
+                        <li class="list-group-item">Mileage: {{stock.mileage}}</li>
+                        <li class="list-group-item">Color: {{stock.color}}</li>
+                        <li class="list-group-item">Availability: {{stock.availability}}</li>
+                        <li class="list-group-item">Note: {{stock.note}}</li>
+                    </ul>
+                </div>
+                           <div align="center">
+
+                                <a class="btn btn-primary" href="#/stock/edit/{{stock._id}}">Edit</a> |
+                                <a class="btn btn-primary" href="#" ng-click="removeStock(stock._id)">Delete</a>
+                           </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        

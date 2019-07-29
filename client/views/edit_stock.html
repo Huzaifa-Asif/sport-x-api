@@ -1,0 +1,94 @@
+<a class="btn btn-primary" href="#/stocks">Go Back</a>
+<br></br>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Edit Stock</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-12">
+            <form ng-submit="updateStock()" ng-init="getStock()">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" ng-model="stock.name" >
+                </div>
+
+                <div class="form-group">
+                    <label>Number</label>
+                    <input type="text" class="form-control" ng-model="stock.number" >
+                </div>
+
+                <div class="form-group">
+                    <label>Make</label>
+                    <input type="text" class="form-control" ng-model="stock.make" >
+                </div>
+
+                <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" class="form-control" ng-model="stock.model" >
+                </div>
+
+                <div class="form-group">
+                    <label>Version</label>
+                    <input type="text" class="form-control" ng-model="stock.version" >
+                </div>
+
+                <div class="form-group">
+                    <label>Year of Manufacture</label>
+                    <input type="text" class="form-control" ng-model="stock.yom" >
+                </div>
+
+                <div class="form-group">
+                    <label>Transmission</label>
+                    <input type="text" class="form-control" ng-model="stock.transmission" >
+                </div>
+
+                <div class="form-group">
+                    <label>Color</label>
+                    <input type="text" class="form-control" ng-model="stock.color" >
+                </div>
+
+                <div class="form-group">
+                    <label>Mileage</label>
+                    <input type="text" class="form-control" ng-model="stock.mileage" >
+                </div>
+
+                <div class="form-group">
+                    <label>Refrence</label>
+                    <input type="text" class="form-control" ng-model="stock.refrence" >
+                </div>
+
+                <div class="form-group">
+                    <label>Note</label>
+                    <input type="text" class="form-control" ng-model="stock.note" >
+                </div>
+
+                <div class="form-group">
+                    <label>Availability</label>
+                    <input type="text" class="form-control" ng-model="stock.availability" >
+                </div>
+
+                <div class="form-group">
+                    <label>Price</label>
+                    <input type="text" class="form-control" ng-model="stock.price" >
+                </div>
+
+                <div class="form-group">
+                    <label>Picture</label>
+                    <input type="file" class="form-control" ng-model="stock.picture">
+                </div>
+
+
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+        </div>
+     </div>
+
+
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
