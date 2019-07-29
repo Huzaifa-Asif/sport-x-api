@@ -2,16 +2,7 @@ var customer =require('../models/customer.js');
 var functions =require('../controllers/functions.js');
 const cloudinary = require('cloudinary');
 
-var imgUrl = null;
-var urlImage = null;
 
-async function uploadImage(image){
-    imgUrl = await cloudinary.uploader.upload(image, {folder: "user_images/"}, function(result){
-        console.log(result.url);
-        return result.url;
-        });
-    return imgUrl;
-}
 
 // Get Customer
 module.exports.getCustomer = (callback, limit) => {
@@ -65,9 +56,17 @@ module.exports.addCustomer = async (customerform, callback) => {
 
     if(customerform.picture)
     {
-        await uploadImage(customerform.picture);
-        urlImage = JSON.stringify(imgUrl.url);
-        record.picture=urlImage;
+        try
+        {
+            imgUrl=await functions.uploadPicture(customerform.picture);
+        }
+        catch(error)
+        {
+            console.log(error);
+            throw error;
+        }
+        //urlImage = JSON(imgUrl.url);
+        record.picture=imgUrl.url;
     }
     else{
         record.picture="";
