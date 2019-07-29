@@ -7,7 +7,7 @@ module.exports.getServiceProvider = (callback, limit) => {
 }
 
 // Check email exists
-module.exports.getServiceProviderByEmail = (email,callback) => {
+module.exports.checkServiceProviderEmail = (email,callback) => {
 	serviceProvider.findOne({email:email},callback);
 }
 
@@ -24,13 +24,13 @@ module.exports.getServiceProviderByCategory = (category ,callback) =>  {
     exec(callback);
 }
 
-// // Get serviceProvider By email
-// module.exports.getServiceProviderByEmail = (email ,callback) =>  {
-//     serviceProvider.
-//     find({email: {$regex: email , $options: 'i'}}).
-//     where('state').equals('approved').
-//     exec(callback);
-// }
+// Get serviceProvider By email
+module.exports.getServiceProviderByEmail = (email ,callback) =>  {
+    serviceProvider.
+    find({email: {$regex: email , $options: 'i'}}).
+    where('state').equals('approved').
+    exec(callback);
+}
 
 
 // Get serviceProvider By name

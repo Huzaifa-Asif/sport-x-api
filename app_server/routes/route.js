@@ -44,7 +44,7 @@ router.post('/signup_Admin', function (req, res) {
 // Signup for customer
 router.post('/signup_customer', function (req, res) {
     var customerform=req.body;
-    customer.getCustomerByEmail(customerform.email,function(err,result)
+    customer.checkCustomerEmail(customerform.email,function(err,result)
     {
         if(err)
         {
@@ -60,7 +60,7 @@ router.post('/signup_customer', function (req, res) {
         
             else
             {
-                serviceProvider.getServiceProviderByEmail(customerform.email,function(err,result)
+                serviceProvider.checkServiceProviderEmail(customerform.email,function(err,result)
                 {
                     if(err)
                     {
@@ -97,7 +97,7 @@ router.post('/signup_customer', function (req, res) {
 // Signup for serviceProvider
 router.post('/signup_serviceProvider', function (req, res) {
     var serviceProviderform=req.body;
-    serviceProvider.getServiceProviderByEmail(serviceProviderform.email,function(err,result)
+    serviceProvider.checkServiceProviderEmail(serviceProviderform.email,function(err,result)
     {
         if(err)
         return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -107,7 +107,7 @@ router.post('/signup_serviceProvider', function (req, res) {
             return res.json({Message:"Email Already Exists",status:false});
             else
             {
-                customer.getCustomerByEmail(serviceProviderform.email,function(err,result)
+                customer.checkCustomerEmail(serviceProviderform.email,function(err,result)
                 {
                     if(err)
                     return res.status(500).json({Message:"Error in Connecting to DB",status:false});

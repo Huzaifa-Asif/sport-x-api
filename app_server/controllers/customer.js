@@ -10,7 +10,7 @@ module.exports.getCustomer = (callback, limit) => {
 }
 
 // Check email exists
-module.exports.getCustomerByEmail = (email,callback) => {
+module.exports.checkcCustomerEmail = (email,callback) => {
 	customer.findOne({email:email},callback);
 }
 // Login
