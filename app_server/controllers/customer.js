@@ -83,6 +83,8 @@ module.exports.addCustomer = async (customerform, callback) => {
 // Update Customer
 module.exports.updateCustomer = async (email, customerform, options, callback) => {
     var query = {email: email};
+    let record=new customer();
+    customerform.password=record.hashPassword(customerform.password);
     if(customerform.picture)
     {
         try

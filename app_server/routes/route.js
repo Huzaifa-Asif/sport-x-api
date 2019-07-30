@@ -591,8 +591,10 @@ router.delete('/delete_team/:id', function (req, res) {
 router.get('/get_team_by_id/:id', function (req, res) {
     team.getTeamById(req.params.id,function (err, result) {
         if (err)
-              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-
+              {
+                console.log(err);
+                  return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+    }
      return res.json(result);
 
     });
@@ -603,8 +605,10 @@ router.get('/get_team_by_id/:id', function (req, res) {
 router.get('/get_team_by_tournament/:id', function (req, res) {
     team.getTeamByTournament(req.params.id,function (err, result) {
         if (err)
+        {
+            console.log(err);
               return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-
+        }
      return res.json(result);
 
     });
