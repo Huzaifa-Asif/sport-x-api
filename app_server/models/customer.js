@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
-// Customer Schema
+// Customer Schema th
 
 const customerSchema = mongoose.Schema({
 	name:{
