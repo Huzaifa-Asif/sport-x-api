@@ -10,6 +10,11 @@ module.exports.getRevenueCategoryById = (id ,callback) =>  {
 	revenueCategory.findById(id, callback);
 }
 
+// Get revenueCategory By Service Provider Email
+module.exports.getRevenueCategoryByServiceProvider = (email ,callback) =>  {
+	revenueCategory.find({serviceProviderEmail:email}, callback);
+}
+
 // Add revenueCategory
 module.exports.addRevenueCategory = (revenueCategoryform, callback) => {
 	revenueCategory.create(revenueCategoryform, callback);
@@ -20,7 +25,7 @@ module.exports.updateRevenueCategory = (id, revenueCategoryform, options, callba
     var query = {_id: id};
     var update = {
         name: revenueCategoryform.name,
-        serviceProviderId: revenueCategoryform.serviceProviderId
+        serviceProviderEmail: revenueCategoryform.serviceProviderEmail
     }
 
     revenueCategory.findOneAndUpdate(query, update, options, callback);

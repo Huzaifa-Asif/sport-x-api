@@ -10,6 +10,11 @@ module.exports.getExpenseCategoryById = (id ,callback) =>  {
 	expenseCategory.findById(id, callback);
 }
 
+// Get expenseCategory By Service Provider Email
+module.exports.getExpenseCategoryByServiceProvider = (email ,callback) =>  {
+	expenseCategory.find({serviceProviderEmail:email}, callback);
+}
+
 // Add expenseCategory
 module.exports.addExpenseCategory = (expenseCategoryform, callback) => {
 	expenseCategory.create(expenseCategoryform, callback);
@@ -20,7 +25,7 @@ module.exports.updateExpenseCategory = (id, expenseCategoryform, options, callba
     var query = {_id: id};
     var update = {
         name: expenseCategoryform.name,
-        serviceProviderId: expenseCategoryform.serviceProviderId
+        serviceProviderEmail: expenseCategoryform.serviceProviderEmail
     }
 
     expenseCategory.findOneAndUpdate(query, update, options, callback);

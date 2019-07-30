@@ -8,7 +8,7 @@ const expenseCategorySchema = new schema({
     name:{
         type:String
     },
-    serviceProviderId:{
+    serviceProviderEmail:{
         type:String
     }
 })
