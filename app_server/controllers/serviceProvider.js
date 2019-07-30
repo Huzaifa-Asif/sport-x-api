@@ -130,6 +130,10 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
         record.picture_profile=imgUrl.url;
        
     }
+    else
+    {
+        record.picture_profile="";
+    }
     
     if(serviceProviderform.picture_cover)
     {
@@ -145,6 +149,10 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
 
         record.picture_cover=imgUrl.url;
        
+    }
+    else
+    {
+        record.picture_cover="";
     }
     
     if(serviceProviderform.picture_1)
@@ -162,7 +170,11 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
         record.picture_1=imgUrl.url;
 
     }
-    
+    else
+    {
+        record.picture_1="";
+    }
+
     if(serviceProviderform.picture_2)
     {
         try
@@ -178,7 +190,11 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
         record.picture_2=imgUrl.url;
 
     }
-  
+    else
+    {
+        record.picture_2="";
+    }
+
     if(serviceProviderform.picture_3)
     {
         try
@@ -194,7 +210,11 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
         record.picture_3=imgUrl.url;
 
     }
-    
+    else
+    {
+        record.picture_3="";
+    }
+
     if(serviceProviderform.picture_4)
     {
         try
@@ -209,7 +229,11 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
 
         record.picture_4=imgUrl.url;
     }
-    
+    else
+    {
+        record.picture_4="";
+    }
+
     if(serviceProviderform.picture_5)
     {
         try
@@ -224,7 +248,11 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
 
         record.picture_5=imgUrl.url;
     }
-    
+    else
+    {
+        record.picture_5="";
+    }
+
     record.save(callback);
 }
 
@@ -263,7 +291,6 @@ module.exports.updateServiceProvider = async (email, serviceProviderform, option
         }
 
         serviceProviderform.picture_profile=imgUrl.url;
-       
     }
     
     if(serviceProviderform.picture_cover)
