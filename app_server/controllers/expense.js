@@ -15,6 +15,11 @@ module.exports.getExpenseByServiceProvider = (email ,callback) =>  {
 	expense.find({serviceProviderEmail:email}, callback);
 }
 
+// Get Expense By Category
+module.exports.getExpenseByCategory = (email ,category,callback) =>  {
+	expense.find({serviceProviderEmail:email,expenseCategory:category}, callback);
+}
+
 // Add expense
 module.exports.addExpense = (expenseform, callback) => {
 	expense.create(expenseform, callback);

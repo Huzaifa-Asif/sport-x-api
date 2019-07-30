@@ -20,6 +20,11 @@ module.exports.addRevenue = (revenueform, callback) => {
 	revenue.create(revenueform, callback);
 }
 
+// Get Revenue By Category
+module.exports.getRevenueByCategory = (email ,category,callback) =>  {
+	revenue.find({serviceProviderEmail:email,revenueCategory:category}, callback);
+}
+
 // Update revenue
 module.exports.updateRevenue = (id, revenueform, options, callback) => {
     var query = {_id: id};
@@ -27,7 +32,7 @@ module.exports.updateRevenue = (id, revenueform, options, callback) => {
 
         revenueCategory: revenueform.revenueCategory,
         amount: revenueform.amount,
-        serviceProviderId: revenueform.serviceProviderId,
+        serviceProviderEmail: revenueform.serviceProviderEmail,
         customerEmail:revenueform.customerEmail,
         bookingId:revenueform.bookingId,
         date: revenueform.date

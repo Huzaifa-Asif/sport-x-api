@@ -20,6 +20,11 @@ module.exports.addRevenueCategory = (revenueCategoryform, callback) => {
 	revenueCategory.create(revenueCategoryform, callback);
 }
 
+// Check revenueCategory exists for Service Provider Email
+module.exports.checkRevenueCategory = (name,email ,callback) =>  {
+	revenueCategory.find({name:name,serviceProviderEmail:email}, callback);
+}
+
 // Update revenueCategory
 module.exports.updateRevenueCategory = (id, revenueCategoryform, options, callback) => {
     var query = {_id: id};
@@ -32,7 +37,7 @@ module.exports.updateRevenueCategory = (id, revenueCategoryform, options, callba
 }
 
 // Delete revenueCategory
-module.exports.removerevenueCategory = (id, callback) => {
+module.exports.removeRevenueCategory = (id, callback) => {
     var query = {_id: id};
     revenueCategory.remove(query, callback);
 }

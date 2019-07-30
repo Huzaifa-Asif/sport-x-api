@@ -619,15 +619,32 @@ router.get('/get_team_by_tournament/:id', function (req, res) {
 router.post('/add_expenseCategory',function(req,res)
 {
     var addExpenseCategoryForm=req.body;
-    expenseCategory.addExpenseCategory(addExpenseCategoryForm,function (err, category) {
-        if (err) {
+    expenseCategory.checkExpenseCategory(addExpenseCategoryForm.name,addExpenseCategoryForm.email,function(err,result)
+    {
+        if(err)
+        {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+        else if(result)
+        {
+            return res.status(500).json({Message:"This category already Exists for this service provider",status:false});
+        }
+        else
+        {
+            expenseCategory.addExpenseCategory(addExpenseCategoryForm,function (err, category) 
+            {
+                if (err) 
+                {
+                    console.log(err);
+                    return res.status(500).json({Message:"Error in Connecting to DB",status:false});
                 }
-        var result = category.toObject();
-        result.status = true;
-        return res.json(result);
-        });
+                var result = category.toObject();
+                result.status = true;
+                return res.json(result);
+            });
+        }
+    });
 
 });
 
@@ -663,15 +680,34 @@ router.delete('/delete_expenseCategory/:id', function (req, res) {
 router.post('/add_revenueCategory',function(req,res)
 {
     var addRevenueCategoryForm=req.body;
-    revenueCategory.addRevenueCategory(addRevenueCategoryForm,function (err, category) {
-        if (err) {
+    revenueCategory.checkRevenueCategory(addRevenueCategoryForm.name,addRevenueCategoryForm.email,function(err,result)
+    {
+        if(err)
+        {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+        else if(result)
+        {
+            return res.status(500).json({Message:"This category already Exists for this service provider",status:false});
+        }
+        else
+        {
+            revenueCategory.addRevenueCategory(addRevenueCategoryForm,function (err, category) 
+            {
+                if (err) 
+                {
+                    console.log(err);
+                    return res.status(500).json({Message:"Error in Connecting to DB",status:false});
                 }
-        var result = category.toObject();
-        result.status = true;
-        return res.json(result);
-        });
+                var result = category.toObject();
+                result.status = true;
+                return res.json(result);
+            });
+        }
+    });
+
+    
 
 });
 
@@ -734,6 +770,21 @@ router.get('/get_expense_by_serviceProvider/:email', function (req, res) {
 
 });
 
+//Get Expense by Category
+router.get('/get_expense_by_category', function (req, res) {
+    expense.getExpenseByCategory(req.query.email,req.query.category,function (err, result) {
+        if (err)
+        {
+            console.log(err);
+              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+     return res.json(result);
+
+    });
+
+});
+
+
 //Delete expenseCategory
 router.delete('/delete_expense/:id', function (req, res) {
     var id=req.params.id;
@@ -776,6 +827,19 @@ router.get('/get_revenue_by_serviceProvider/:email', function (req, res) {
 
     });
 
+});
+
+//Get Revenue by Category
+router.get('/get_revenue_by_category', function (req, res) {
+    revenue.getRevenueByCategory(req.query.email,req.query.category,function (err, result) {
+        if (err)
+        {
+            console.log(err);
+              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+     return res.json(result);
+
+    });
 });
 
 //Delete Revenue
