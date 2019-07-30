@@ -11,14 +11,18 @@ const revenueSchema = new schema({
     amount:{
         type:Number
     },
-    customerId:{
+    customerEmail:{
         type:String
     },
-    serviceProviderId:{
+    bookingId:
+    {
+        type:String
+    },
+    serviceProviderEmail:{
         type:String
     },
     date:{
-        type:Date
+        type:String
     }
 })
 

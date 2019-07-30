@@ -11,11 +11,14 @@ const expenseSchema = new schema({
     amount:{
         type:Number
     },
-    serviceProviderId:{
+    serviceProviderEmail:{
         type:String
     },
     date:{
-        type:Date
+        type:String
+    },
+    description:{
+        type:String
     }
 })
 
