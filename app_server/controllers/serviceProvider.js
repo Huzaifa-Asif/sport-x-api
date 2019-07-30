@@ -246,8 +246,10 @@ module.exports.updateServiceProvider = async (email, serviceProviderform, option
     // if(serviceProviderform.picture_5)
     // serviceProviderform.picture_5=functions.uploadPicture(email+'_picture_5',serviceProviderform.picture_5);
     let record=new serviceProvider();
-    serviceProviderform.password=record.hashPassword(serviceProviderform.password);
-
+    if(serviceProviderform.password)
+    {
+        serviceProviderform.password=record.hashPassword(serviceProviderform.password);
+    }
     if(serviceProviderform.picture_profile)
     {
         try
