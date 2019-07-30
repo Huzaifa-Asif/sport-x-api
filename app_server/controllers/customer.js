@@ -100,11 +100,11 @@ module.exports.updateCustomer = async (email, customerform, options, callback) =
             throw error;
         }
         //urlImage = JSON(imgUrl.url);
-        record.picture=imgUrl.url;
+        customerform.picture=imgUrl.url;
     }
     else
     {
-        record.picture="";
+        customerform.picture="";
     }
    
     customer.findOneAndUpdate(query, customerform, options, callback);
