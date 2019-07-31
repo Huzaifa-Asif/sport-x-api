@@ -22,8 +22,7 @@ const chatboxMessagesSchema = new schema({
         type:String
     },
     date:{
-        type:Date,
-        default:Date.now()
+        type:Date
     }
 })
 
