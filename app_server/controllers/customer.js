@@ -1,6 +1,5 @@
 var customer =require('../models/customer.js');
 var functions =require('../controllers/functions.js');
-const cloudinary = require('cloudinary');
 
 
 

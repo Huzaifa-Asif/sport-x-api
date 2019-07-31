@@ -16,9 +16,10 @@ const messageSchema = new schema({
         type:String
     },
     type:{
-        type:String
+        type:String,
+        default:"text"
     },
-    file_path:{
+    image_path:{
         type:String
     },
     date:{
