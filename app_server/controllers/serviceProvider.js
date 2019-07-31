@@ -259,21 +259,11 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
 // Update serviceProvider
 module.exports.updateServiceProvider = async (email, serviceProviderform, options, callback) => {
     var query = {email: email};
-    // if(serviceProviderform.picture_profile)
-    // serviceProviderform.picture_profile=functions.uploadPicture(email+'_picture_profile',serviceProviderform.picture_profile);
-    // if(serviceProviderform.picture_cover)
-    // serviceProviderform.picture_cover=functions.uploadPicture(email+'_picture_cover',serviceProviderform.picture_cover);
-    // if(serviceProviderform.picture_1)
-    // serviceProviderform.picture_1=functions.uploadPicture(email+'_picture_1',serviceProviderform.picture_1);
-    // if(serviceProviderform.picture_2)
-    // serviceProviderform.picture_2=functions.uploadPicture(email+'_picture_2',serviceProviderform.picture_2);
-    // if(serviceProviderform.picture_3)
-    // serviceProviderform.picture_3=functions.uploadPicture(email+'_picture_3',serviceProviderform.picture_3);
-    // if(serviceProviderform.picture_4)
-    // serviceProviderform.picture_4=functions.uploadPicture(email+'_picture_4',serviceProviderform.picture_4);
-    // if(serviceProviderform.picture_5)
-    // serviceProviderform.picture_5=functions.uploadPicture(email+'_picture_5',serviceProviderform.picture_5);
     let record=new serviceProvider();
+    if(serviceProviderform.lat&&serviceProviderform.long)
+    {
+        serviceProviderform.location={lat:serviceProviderform.lat,long:serviceProviderform.long}
+    }
     if(serviceProviderform.password)
     {
         serviceProviderform.password=record.hashPassword(serviceProviderform.password);
