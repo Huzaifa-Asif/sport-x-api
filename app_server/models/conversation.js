@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 
 // Chatbox Schema
 
-const chatboxSchema = new schema({
+const conversationSchema = new schema({
 
     customerEmail:{
         type:String
@@ -12,8 +12,9 @@ const chatboxSchema = new schema({
     serviceProviderEmail:{
         type:String
     },
-    status:{
-        type:String
+    state:{
+        type:String,
+        default:"active"
     },
     date:{
         type:Date
@@ -21,4 +22,4 @@ const chatboxSchema = new schema({
 })
 
 
-const chatbox= module.exports = mongoose.model('Chatbox',chatboxSchema);
+const Conversation= module.exports = mongoose.model('Conversation',conversationSchema);

@@ -5,7 +5,7 @@ var router = express.Router();
 var admin = require('../controllers/admin.js');
 var booking = require('../controllers/booking.js');
 var bookingDetails = require('../controllers/bookingDetails.js');
-var chatbox = require('../controllers/chatbox.js');
+var conversation = require('../controllers/conversation.js');
 var customer = require('../controllers/customer.js');
 var expense = require('../controllers/expense.js');
 var expenseCategory = require('../controllers/expenseCategory.js');
@@ -17,6 +17,8 @@ var serviceProvider = require('../controllers/serviceProvider.js');
 var team = require('../controllers/team.js');
 var tournament = require('../controllers/tournament.js');
 var functions =require('../controllers/functions.js');
+var functions =require('../controllers/functions.js');
+var message =require('../controllers/message.js');
 
 
 router.get('/',function(req,res)
@@ -855,6 +857,77 @@ router.delete('/delete_revenue/:id', function (req, res) {
         });
 
 });
+
+//Add Conversation
+router.post('/add_conversation',function(req,res)
+{
+    var addConversationForm=req.body;
+    conversation.checkConversation(addConversationForm.serviceProviderEmail,addConversationForm.customerEmail,function(err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+        else if(result)
+        {
+            if(result.state=="archived")
+            {
+                return res.status(500).json({Message:"A conversation already exists that is archived",status:false});
+            }
+            else
+            {
+                return res.status(500).json({Message:"An Active Conversation already exists",status:false});
+            }
+            
+        }
+        else
+        {
+            conversation.addConversation(addConversationForm,function (err, conversation) 
+            {
+                if (err) 
+                {
+                    console.log(err);
+                    return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+                }
+                var result = conversation.toObject();
+                result.status = true;
+                return res.json(result);
+            });
+        }
+    });
+
+});
+
+//Get Conversation by id
+router.get('/get_conversation_by_id/:id', function (req, res) {
+    conversation.getConversationById(req.params.id,function (err, result) {
+        if (err)
+        {
+            console.log(err);
+              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+     return res.json(result);
+
+    });
+});
+
+//Set Conversation State
+router.patch('/set_conversation_state/:id',function(req,res)
+{
+    let conversationForm=req.body;
+    conversation.setConversationState(req.params.id,conversationForm,{new:true},function (err, conversation) {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+                }
+        var result = conversation.toObject();
+        result.status = true;
+        return res.json(result);
+        });
+
+});
+
 
 // /* GET home page. */
 // router.get('/', function (req, res, next) {

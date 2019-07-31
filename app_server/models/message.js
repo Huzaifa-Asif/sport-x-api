@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const schema = mongoose.Schema;
 
-// Chatbox Schema
+// Message  Schema
 
-const chatboxMessagesSchema = new schema({
-    // _id of chatbox
-    chatboxId:{
+const messageSchema = new schema({
+    // _id of Conversation 
+    conversationId:{
         type:String
     },
-    senderId:{
+    senderEmail:{
         type:String
     },
     message:{
@@ -28,4 +28,4 @@ const chatboxMessagesSchema = new schema({
 })
 
 
-const chatboxMessages= module.exports = mongoose.model('ChatboxMessages',chatboxMessagesSchema);
+const Message= module.exports = mongoose.model('Message',messageSchema);
