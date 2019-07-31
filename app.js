@@ -19,7 +19,7 @@ const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true }).then(() => console.log('MongoDB connected…'))
 .catch(err => console.log(err));
 
-
+// update route updated
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server','views'));
 app.set('view engine', 'jade');
