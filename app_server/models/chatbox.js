@@ -5,20 +5,18 @@ const schema = mongoose.Schema;
 // Chatbox Schema
 
 const chatboxSchema = new schema({
-    message:{
-        type:Number
-    },
-    senderId:{
+
+    customerEmail:{
         type:String
     },
-    recieverId:{
+    serviceProviderEmail:{
+        type:String
+    },
+    status:{
         type:String
     },
     date:{
         type:Date
-    },
-    time:{
-        type:String
     }
 })
 
