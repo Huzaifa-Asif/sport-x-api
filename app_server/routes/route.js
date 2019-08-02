@@ -923,6 +923,20 @@ router.get('/get_conversation_by_id/:id', function (req, res) {
     });
 });
 
+//Get Conversation by email
+router.get('/get_conversation_by_email/:email', function (req, res) {
+    conversation.getConversationByEmail(req.params.email,function (err, result) {
+        if (err)
+        {
+            console.log(err);
+              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+     return res.json(result);
+
+    });
+});
+
+
 //Set Conversation State
 router.patch('/set_conversation_state/:id',function(req,res)
 {
@@ -960,12 +974,68 @@ router.post('/send_message',function(req,res)
 //Get Messages by Conversation Id
 router.get('/get_message_by_conversationId/:id', function (req, res) {
     message.getMessageByConversationId(req.params.id,function (err, result) {
+        var finalResult=[];
+        var finalCustomer,finalMessage,finalServiceProvider;
         if (err)
         {
             console.log(err);
-              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
         }
-     return res.json(result);
+        else
+        {
+            for(let i=0;i<result.length;i++)
+            {
+                finalMessage=result[i].toObject();
+                let conversationId=result[i].conversationId;
+                conversation.getConversationById(conversationId,function (err, conversation) 
+                {
+                    if (err)
+                    {
+                        console.log(err);
+                        return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+                    }
+                    else
+                    {
+                        let customerEmail=conversation.customerEmail;
+                        let serviceProviderEmail=conversation.serviceProviderEmail;
+                        customer.getCustomerByEmail(customerEmail,function(err,customer)
+                        {
+                            if(err)
+                            {
+                                console.log(err);
+                                return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+                            }
+                            else
+                            {
+                                console.log(customer.email);
+                                finalCustomer=customer.toObject();
+                            }
+                        });
+                        serviceProvider.getServiceProviderByEmail(serviceProviderEmail,function(err,serviceProvider)
+                        {
+                            if(err)
+                            {
+                                console.log(err);
+                                return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+                            }
+                            else
+                            {   console.log(serviceProvider.email);
+                                finalServiceProvider=serviceProvider.toObject();
+                            }
+
+                        });
+                    }
+                });
+                finalResult[i]={
+                    customer:finalCustomer,
+                    serviceProvider:finalServiceProvider,
+                    message:finalMessage
+
+                }
+                
+            }
+        }
+     return res.json(finalResult);
     });
 });
 

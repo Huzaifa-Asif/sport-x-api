@@ -6,6 +6,18 @@ module.exports.getConversationById = (id ,callback) =>  {
 	conversation.findById(id, callback);
 }
 
+// Get conversation By email
+module.exports.getConversationByEmail = (email ,callback) =>  {
+	conversation.find({
+		$or: 
+		[
+		  { 'customerEmail': email },
+		  { 'serviceProviderEmail': email }
+		]
+	  }, callback);
+}
+
+
 // Check if a conversation already exists that is archived
 module.exports.checkConversation = (serviceProviderEmail,customerEmail,callback) =>  {
 	conversation.findOne({serviceProviderEmail:serviceProviderEmail,customerEmail:customerEmail}, callback);

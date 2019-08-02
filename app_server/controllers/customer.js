@@ -49,6 +49,11 @@ module.exports.getCustomerById = (id ,callback) =>  {
 	customer.findById(id, callback);
 }
 
+// Get Customer By Email
+module.exports.getCustomerByEmail = (email ,callback) =>  {
+	customer.findOne({email:email}, callback);
+}
+
 // Add Customer
 module.exports.addCustomer = async (customerform, callback) => {
     let record=new customer();
