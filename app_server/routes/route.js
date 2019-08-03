@@ -713,7 +713,7 @@ router.post('/add_revenueCategory',function(req,res)
 
 });
 
-//Get RevenueCategory by ServiceProvider
+//Get RevenueCategory by ServiceProvider ff
 router.get('/get_revenueCategory_by_serviceProvider/:email', function (req, res) {
     revenueCategory.getRevenueCategoryByServiceProvider(req.params.email,function (err, result) {
         if (err)
