@@ -923,19 +923,30 @@ router.get('/get_conversation_by_id/:id', function (req, res) {
     });
 });
 
-//Get Conversation by email
-router.get('/get_conversation_by_email/:email', function (req, res) {
-    conversation.getConversationByEmail(req.params.email,function (err, result) {
-        if (err)
-        {
-            console.log(err);
-              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-        }
-     return res.json(result);
+// //Get Conversation by email
+// router.get('/get_conversation_by_email/:email', function (req, res) {
+//     conversation.getConversationByEmail(req.params.email,function (err, result) {
+//         if (err)
+//         {
+//             console.log(err);
+//             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+//         }
+//         else
+//         {
+//             return res.json(result);
+//         }
+//     });
+// });
 
-    });
+//Get Conversation by email
+router.get('/get_conversation_by_email_active/:email', function (req, res) {
+    conversation.getConversationByEmail(req,res,'active');       
 });
 
+//Get Conversation by email
+router.get('/get_conversation_by_email_archived/:email', function (req, res) {
+    conversation.getConversationByEmail(req,res,'archived');       
+});
 
 //Set Conversation State
 router.patch('/set_conversation_state/:id',function(req,res)
