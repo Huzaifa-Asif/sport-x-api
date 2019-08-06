@@ -27,7 +27,7 @@ router.get('/',function(req,res)
 });
 
 
-//Add Admin
+//Add Admin 
 router.post('/signup_Admin', function (req, res) {
     var adminform=req.body;
     admin.addAdmin(adminform,function (err, admin) {
