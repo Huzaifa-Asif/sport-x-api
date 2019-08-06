@@ -938,12 +938,12 @@ router.get('/get_conversation_by_id/:id', function (req, res) {
 //     });
 // });
 
-//Get Conversation by email
+//Get Active Conversation by email
 router.get('/get_conversation_by_email_active/:email', function (req, res) {
     conversation.getConversationByEmail(req,res,'active');       
 });
 
-//Get Conversation by email
+//Get Archived Conversation by email
 router.get('/get_conversation_by_email_archived/:email', function (req, res) {
     conversation.getConversationByEmail(req,res,'archived');       
 });
@@ -951,35 +951,13 @@ router.get('/get_conversation_by_email_archived/:email', function (req, res) {
 //Set Conversation State
 router.patch('/set_conversation_state/:id',function(req,res)
 {
-    let conversationForm=req.body;
-    conversation.setConversationState(req.params.id,conversationForm,{new:true},function (err, conversation) {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-                }
-        var result = conversation.toObject();
-        result.status = true;
-        return res.json(result);
-        });
-
+    conversation.setConversationState(req,res);
 });
 
 //Send Message
 router.post('/send_message',function(req,res)
 {
-    var addMessageForm=req.body;
-    message.addmessage(addMessageForm,function (err, message) 
-            {
-                if (err) 
-                {
-                    console.log(err);
-                    return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-                }
-                var result = message.toObject();
-                result.status = true;
-                return res.json(result);
-            });
-
+    message.sendMessage(req,res);
 });
 
 //Get Messages by Conversation Id
@@ -1006,7 +984,7 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
                 {
                     let customerEmail=conversation.customerEmail;
                     let serviceProviderEmail=conversation.serviceProviderEmail;
-                    let finalCustomer,finalServiceProvider;
+                    let customerName,serviceProviderName,customerPicture,serviceProviderPicture;
                     customer.getCustomerByEmail(customerEmail,function(err,customer)
                     {
                         if(err)
@@ -1016,7 +994,8 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
                         }
                         else
                         {
-                            finalCustomer=customer.toObject();
+                            customerName=customer.name;
+                            customerPicture=customer.picture;
                             serviceProvider.getServiceProviderByEmail(serviceProviderEmail,function(err,serviceProvider)
                             {
                                 if(err)
@@ -1026,17 +1005,19 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
                                 }
                                 else
                                 {   
+                                    serviceProviderName=serviceProvider.name;
+                                    serviceProviderPicture=serviceProvider.picture_profile;
+                                    
                                     let finalResult=[];   
-                                    finalServiceProvider=serviceProvider.toObject();
                                     for(let i=0;i<result.length;i++)
                                     {
-                                        let finalMessage=result[i].toObject();
-                                        finalResult[i]={
-                                            message:finalMessage,
-                                            customer:finalCustomer,
-                                            serviceProvider:finalServiceProvider
-
-                                        }
+                                        finalResult[i]=result[i].toObject();
+                                        finalResult[i].customerName=customerName;
+                                        finalResult[i].customerEmail=customerEmail;
+                                        finalResult[i].customerPicture=customerPicture;
+                                        finalResult[i].serviceProviderName=serviceProviderName;
+                                        finalResult[i].serviceProviderEmail=serviceProviderEmail;
+                                        finalResult[i].serviceProviderPicture=serviceProviderPicture;
                                     }
                                     return res.json(finalResult);
                                 }

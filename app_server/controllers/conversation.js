@@ -8,17 +8,6 @@ module.exports.getConversationById = (id ,callback) =>  {
 	conversation.findById(id, callback);
 }
 
-// // Get conversation By email
-// module.exports.getConversationByEmail = (email ,callback) =>  {
-// 	conversation.find({
-// 		$or: 
-// 		[
-// 		  { 'customerEmail': email },
-// 		  { 'serviceProviderEmail': email }
-// 		]
-// 	  }, callback);
-// }
-
 
 
 
@@ -88,10 +77,29 @@ module.exports.addConversation = (conversationform, callback) => {
 	conversation.create(conversationform, callback);
 }
 
-// Update conversation State
-module.exports.setConversationState = (id,conversationForm, options, callback) => {
-    var query = {_id: id};
+// // Update conversation State
+// module.exports.setConversationState = (id,conversationForm, options, callback) => {
+//     var query = {_id: id};
     
-    conversation.findOneAndUpdate(query, conversationForm, options, callback);
-}
+//     conversation.findOneAndUpdate(query, conversationForm, options, callback);
+// }
 
+// Update conversation State
+module.exports.setConversationState = (req,res) => {
+	let conversationForm=req.body;
+	let id=req.params.id;
+	let query={_id:id};
+	conversation.findOneAndUpdate(query, conversationForm, {new:true})
+	.exec()
+	.then(conversation=>
+		{
+			var result = conversation.toObject();
+        	result.status = true;
+        	return res.json(result);
+		})
+	.catch(err=>
+		{
+			console.log(err);
+            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+		});
+}

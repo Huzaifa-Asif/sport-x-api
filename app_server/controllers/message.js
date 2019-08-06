@@ -13,28 +13,61 @@ module.exports.getMessageByConversationId = (id ,callback) =>  {
 }
 
 
-// Add message
-module.exports.addmessage = async (messageform, callback) => {
-    if(messageform.type=="image")
+// // Add message
+// module.exports.addmessage = async (messageform, callback) => {
+//     if(messageform.type=="image")
+//     {
+//         try
+//         {
+//             imgUrl=await functions.uploadPicture(messageform.image_path);
+//         }
+//         catch(error)
+//         {
+//             console.log(error);
+//             throw error;
+//         }
+//         //urlImage = JSON(imgUrl.url);
+//         messageform.image_path=imgUrl.url;
+//     }
+//     else{
+//         messageform.image_path="";
+//     }    
+    
+    
+//     message.create(messageform, callback);
+// }
+
+// Send message
+module.exports.sendMessage = async (req,res) => {
+    var sendMessageForm=req.body;
+    var record=new message();
+    if(sendMessageForm.type=="image")
     {
         try
         {
-            imgUrl=await functions.uploadPicture(messageform.image_path);
+            imgUrl=await functions.uploadPicture(sendMessageForm.image_path);
         }
         catch(error)
         {
             console.log(error);
-            throw error;
+            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
         }
-        //urlImage = JSON(imgUrl.url);
-        messageform.image_path=imgUrl.url;
+        sendMessageForm.image_path=imgUrl.url;
     }
     else{
-        messageform.image_path="";
-    }    
-    
-    
-    message.create(messageform, callback);
+        sendMessageForm.image_path="";
+    }
+
+    await message.create(sendMessageForm).then(message=>
+        {
+            var result = message.toObject();
+            result.status = true;
+            return res.json(result);
+        }).catch(err=>
+            {
+                console.log(err);
+                return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+            })
 }
 
 
