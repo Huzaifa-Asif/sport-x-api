@@ -32,6 +32,12 @@ const tournamentSchema = new schema({
     },
     adderEmail:{
         type:String
+    },
+    startDate:{
+        type:Date
+    },
+    date:{
+        type:Date
     }
 })
 
