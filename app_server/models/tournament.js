@@ -13,7 +13,7 @@ const tournamentSchema = new schema({
         type:String
     },
     teams:{
-        type:Number
+        type:String
     },
     winningPrize:{
         type:String
@@ -40,7 +40,7 @@ const tournamentSchema = new schema({
         type:String
     },
     date:{
-        type:Date
+        type:String
     }
 })
 
