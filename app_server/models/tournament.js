@@ -7,7 +7,7 @@ const schema = mongoose.Schema;
 const tournamentSchema = new schema({
     state:{
         type:String,
-        default:"Inactive"
+        default:"pending"
     },
     name:{
         type:String
@@ -34,7 +34,10 @@ const tournamentSchema = new schema({
         type:String
     },
     startDate:{
-        type:Date
+        type:String
+    },
+    startTime:{
+        type:String
     },
     date:{
         type:Date
