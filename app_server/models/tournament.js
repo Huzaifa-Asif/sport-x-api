@@ -7,7 +7,7 @@ const schema = mongoose.Schema;
 const tournamentSchema = new schema({
     state:{
         type:String,
-        default:"pending"
+        default:"inactive"
     },
     name:{
         type:String
