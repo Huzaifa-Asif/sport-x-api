@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-
+//
 var admin = require('../controllers/admin.js');
 var booking = require('../controllers/booking.js');
 var bookingDetails = require('../controllers/bookingDetails.js');
@@ -53,14 +53,14 @@ router.post('/signup_customer', function (req, res) {
         {
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
         }
-        
+
         else
         {
             if(result)
             {
                 return res.json({Message:"Email Already Exists",status:false});
             }
-        
+
             else
             {
                 serviceProvider.checkServiceProviderEmail(customerform.email,function(err,result)
@@ -69,12 +69,12 @@ router.post('/signup_customer', function (req, res) {
                     {
                         return res.status(500).json({Message:"Error in Connecting to DB",status:false});
                     }
-                    
+
                     else if(result)
                     {
                         return res.json({Message:"Email Already Exists",status:false});
                     }
-                   
+
                     else
                     {
                         customer.addCustomer(customerform,function (err, customer)
@@ -145,7 +145,7 @@ router.post('/login', function (req, res) {
     let email=req.body.email;
     let password=req.body.password;
     functions.login(email,password,res);
-    
+
 });
 
 //Login for Admin
@@ -154,6 +154,25 @@ router.post('/loginAdmin', function (req, res) {
     let password=req.body.password;
     admin.login(email,password,res);
 
+
+});
+
+
+// Get All Service Provider
+router.get('/get_serviceProvider', function (req, res) {
+    serviceProvider.getServiceProvider(function (err, result) {
+        if (err)
+        {
+          return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+
+        else
+        {
+          return res.json(result);
+        }
+
+
+    });
 
 });
 
@@ -454,9 +473,9 @@ router.post('/add_tournament',function(req,res)
 router.patch('/update_tournament/:id', function (req, res) {
     var tournamentForm=req.body;
     var id=req.params.id;
-    tournament.updateTournament(id,tournamentForm,{new:true},function (err, tournament) 
+    tournament.updateTournament(id,tournamentForm,{new:true},function (err, tournament)
     {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -478,7 +497,7 @@ router.patch('/update_tournament/:id', function (req, res) {
 router.delete('/delete_tournament/:id', function (req, res) {
     var id=req.params.id;
     tournament.removeTournament(id,function (err) {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -556,9 +575,9 @@ router.post('/add_team',function(req,res)
 router.patch('/update_team/:id', function (req, res) {
     var teamForm=req.body;
     var id=req.params.id;
-    team.updateTeam(id,teamForm,{new:true},function (err, team) 
+    team.updateTeam(id,teamForm,{new:true},function (err, team)
     {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -579,7 +598,7 @@ router.patch('/update_team/:id', function (req, res) {
 router.delete('/delete_team/:id', function (req, res) {
     var id=req.params.id;
     team.removeTeam(id,function (err) {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -634,9 +653,9 @@ router.post('/add_expenseCategory',function(req,res)
         }
         else
         {
-            expenseCategory.addExpenseCategory(addExpenseCategoryForm,function (err, category) 
+            expenseCategory.addExpenseCategory(addExpenseCategoryForm,function (err, category)
             {
-                if (err) 
+                if (err)
                 {
                     console.log(err);
                     return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -668,7 +687,7 @@ router.get('/get_expenseCategory_by_serviceProvider/:email', function (req, res)
 router.delete('/delete_expenseCategory/:id', function (req, res) {
     var id=req.params.id;
     expenseCategory.removeExpenseCategory(id,function (err) {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -695,9 +714,9 @@ router.post('/add_revenueCategory',function(req,res)
         }
         else
         {
-            revenueCategory.addRevenueCategory(addRevenueCategoryForm,function (err, category) 
+            revenueCategory.addRevenueCategory(addRevenueCategoryForm,function (err, category)
             {
-                if (err) 
+                if (err)
                 {
                     console.log(err);
                     return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -709,7 +728,7 @@ router.post('/add_revenueCategory',function(req,res)
         }
     });
 
-    
+
 
 });
 
@@ -731,7 +750,7 @@ router.get('/get_revenueCategory_by_serviceProvider/:email', function (req, res)
 router.delete('/delete_revenueCategory/:id', function (req, res) {
     var id=req.params.id;
     revenueCategory.removeRevenueCategory(id,function (err) {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -784,7 +803,7 @@ router.get('/get_expense_by_category', function (req, res) {
 router.delete('/delete_expense/:id', function (req, res) {
     var id=req.params.id;
     expense.removeExpense(id,function (err) {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -832,7 +851,7 @@ router.get('/get_revenue_by_category', function (req, res) {
 router.delete('/delete_revenue/:id', function (req, res) {
     var id=req.params.id;
     revenue.removeRevenue(id,function (err) {
-        if (err) 
+        if (err)
         {
             console.log(err);
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -857,9 +876,9 @@ router.post('/add_conversation',function(req,res)
         {
             if(result.state=="archived")
             {
-                conversation.setConversationState(result._id,{state:"active"},{new:true},function (err, conversation) 
+                conversation.setConversationState(result._id,{state:"active"},{new:true},function (err, conversation)
                 {
-                    if (err) 
+                    if (err)
                     {
                         console.log(err);
                         return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -878,9 +897,9 @@ router.post('/add_conversation',function(req,res)
         }
         else
         {
-            conversation.addConversation(addConversationForm,function (err, conversation) 
+            conversation.addConversation(addConversationForm,function (err, conversation)
             {
-                if (err) 
+                if (err)
                 {
                     console.log(err);
                     return res.status(500).json({Message:"Error in Connecting to DB",status:false});
@@ -924,12 +943,12 @@ router.get('/get_conversation_by_id/:id', function (req, res) {
 
 //Get Active Conversation by email
 router.get('/get_conversation_by_email_active/:email', function (req, res) {
-    conversation.getConversationByEmail(req,res,'active');       
+    conversation.getConversationByEmail(req,res,'active');
 });
 
 //Get Archived Conversation by email
 router.get('/get_conversation_by_email_archived/:email', function (req, res) {
-    conversation.getConversationByEmail(req,res,'archived');       
+    conversation.getConversationByEmail(req,res,'archived');
 });
 
 //Set Conversation State
@@ -946,8 +965,8 @@ router.post('/send_message',function(req,res)
 
 //Get Messages by Conversation Id
 router.get('/get_message_by_conversationId/:id', function (req, res) {
-    
-    message.getMessageByConversationId(req.params.id, function (err, result) 
+
+    message.getMessageByConversationId(req.params.id, function (err, result)
     {
         if (err)
         {
@@ -957,7 +976,7 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
         else
         {
             let conversationId=result[0].conversationId;
-            conversation.getConversationById(conversationId,async function (err, conversation) 
+            conversation.getConversationById(conversationId,async function (err, conversation)
             {
                 if (err)
                 {
@@ -988,11 +1007,11 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
                                     return res.status(500).json({Message:"Error in Connecting to DB",status:false});
                                 }
                                 else
-                                {   
+                                {
                                     serviceProviderName=serviceProvider.name;
                                     serviceProviderPicture=serviceProvider.picture_profile;
-                                    
-                                    let finalResult=[];   
+
+                                    let finalResult=[];
                                     for(let i=0;i<result.length;i++)
                                     {
                                         finalResult[i]=result[i].toObject();
@@ -1009,11 +1028,11 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
                             });
                         }
                     });
-                        
+
                 }
             });
         }
-        
+
     });
 
 });

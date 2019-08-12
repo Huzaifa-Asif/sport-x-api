@@ -7,13 +7,13 @@ const schema = mongoose.Schema;
 const tournamentSchema = new schema({
     state:{
         type:String,
-        default:"Inactive"
+        default:"inactive"
     },
     name:{
         type:String
     },
     teams:{
-        type:Number
+        type:String
     },
     winningPrize:{
         type:String
@@ -31,6 +31,15 @@ const tournamentSchema = new schema({
         type:String
     },
     adderEmail:{
+        type:String
+    },
+    startDate:{
+        type:String
+    },
+    startTime:{
+        type:String
+    },
+    date:{
         type:String
     }
 })
