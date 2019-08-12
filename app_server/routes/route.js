@@ -770,7 +770,7 @@ router.post('/add_expense',function(req,res)
 
 
 
-//Get Expense by ServiceProvider
+//Get Expense by ServiceProvider.
 router.get('/get_expense_by_serviceProvider/:email', function (req, res) {
     expense.getExpenseByServiceProvider(req.params.email,function (err, result) {
         if (err)
