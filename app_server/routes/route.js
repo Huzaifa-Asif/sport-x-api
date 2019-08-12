@@ -745,18 +745,11 @@ router.delete('/delete_revenueCategory/:id', function (req, res) {
 //Add Expense
 router.post('/add_expense',function(req,res)
 {
-    var addExpenseForm=req.body;
-    expense.addExpense(addExpenseForm,function (err, expense) {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-                }
-        var result = expense.toObject();
-        result.status = true;
-        return res.json(result);
-        });
+    expense.addExpense(req,res);
 
 });
+
+
 
 //Get Expense by ServiceProvider
 router.get('/get_expense_by_serviceProvider/:email', function (req, res) {
@@ -804,16 +797,7 @@ router.delete('/delete_expense/:id', function (req, res) {
 //Add Revenue
 router.post('/add_revenue',function(req,res)
 {
-    var addRevenueForm=req.body;
-    revenue.addRevenue(addRevenueForm,function (err, revenue) {
-        if (err) {
-            console.log(err);
-            return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-                }
-        var result = revenue.toObject();
-        result.status = true;
-        return res.json(result);
-        });
+    revenue.addrevenue(req,res);
 
 });
 

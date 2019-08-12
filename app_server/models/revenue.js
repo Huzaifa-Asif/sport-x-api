@@ -23,6 +23,9 @@ const revenueSchema = new schema({
     },
     date:{
         type:String
+    },
+    description:{
+        type:String
     }
 })
 
