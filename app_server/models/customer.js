@@ -23,6 +23,11 @@ const customerSchema = mongoose.Schema({
     {
         type:Number,
         default:2
+	},
+	state:
+    {
+		type: String,
+		default:"approved"
     }
 });
 customerSchema.methods.hashPassword = function(password){
