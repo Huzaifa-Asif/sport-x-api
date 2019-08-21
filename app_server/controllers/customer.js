@@ -82,6 +82,19 @@ module.exports.addCustomer = async (customerform, callback) => {
         record.picture="";
     }
     
+    if(!customerform.email)
+    {
+        record.email="";
+    }
+    if(!customerform.contact)
+    {
+        record.contact="";
+    }
+
+    if(!customerform.name)
+    {
+        record.name="";
+    }
 
     record.save(callback);
 }
