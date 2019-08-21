@@ -176,6 +176,26 @@ router.get('/get_serviceProvider', function (req, res) {
 
 });
 
+
+
+// Get All Customer
+router.get('/get_customer', function (req, res) {
+    customer.getCustomer(function (err, result) {
+        if (err)
+        {
+          return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        }
+
+        else
+        {
+          return res.json(result);
+        }
+
+
+    });
+
+});
+
 // Get Service Provider by category
 router.get('/search/serviceProviderByCategory/:category', function (req, res) {
     serviceProvider.getServiceProviderByCategory(req.params.category,function (err, serviceProviders) {
@@ -286,9 +306,18 @@ router.patch('/update_serviceProvider/:email', function (req, res) {
         {
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
         }
-        var result = serviceProvider.toObject();
-        result.status = true;
-        return res.json(result);
+
+        if(serviceProvider!=null)
+        {
+          var result = serviceProvider.toObject();
+          result.status = true;
+          return res.json(result);
+        }
+        else{
+          return res.json({Message:"System Error",status:false});
+        }
+
+
 
     });
 
