@@ -280,7 +280,7 @@ router.get('/search/serviceProviderByLocation/:lat/:long/:maxDistance', function
 });
 
 
-// Update Customer Profile
+// Update Customer Profile.
 router.patch('/update_customer/:email', function (req, res) {
     var email = req.params.email;
     var customerform = req.body;
