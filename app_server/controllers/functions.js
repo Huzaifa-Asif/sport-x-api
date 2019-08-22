@@ -24,7 +24,9 @@ module.exports.uploadPicture= async (base64) =>
 // Login
 module.exports.login = (email,password,res) => {
     let record=new customer();
-    customer.findOne({email:email},function(err,result)
+    customer.findOne({email:email}).
+    where('state').equals('approved').
+    exec(function(err,result)
     {
         if (err)
 		{
