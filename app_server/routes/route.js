@@ -462,6 +462,20 @@ router.get('/customerInProgressBookings/:email', bookingDetails.customerInProgre
 // Completed Bookings of Customer
 router.get('/customerCompletedBookings/:email', bookingDetails.customerCompletedBookings);
 
+
+// Get All the Booking
+router.get('/get_booking', function (req, res) {
+    bookingDetails.getBookingDetails(function (err, result) {
+        if (err)
+              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+
+     return res.json(result);
+
+    });
+
+});
+
+
 // Get Booking Details by Email - Service Provider
 router.get('/get_bookingdetails/:email', function (req, res) {
     bookingDetails.getBookingDetailsByEmail(req.params.email,function (err, result) {
