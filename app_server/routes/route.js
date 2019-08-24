@@ -496,6 +496,19 @@ router.post('/post_rating', ratingAndFeedback.post_rating);
 router.get('/findRating/:id', ratingAndFeedback.findRating);
 
 
+// Get All the Tournament
+router.get('/get_tournament', function (req, res) {
+    tournament.getTournament(function (err, result) {
+        if (err)
+              return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+
+     return res.json(result);
+
+    });
+
+});
+
+
 //Add Tournament
 router.post('/add_tournament',function(req,res)
 {
