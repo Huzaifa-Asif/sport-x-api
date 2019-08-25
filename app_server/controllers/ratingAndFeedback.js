@@ -47,6 +47,7 @@ module.exports.post_rating = (req, res) => {
         feedback: req.body.feedback,
         date: req.body.date,
         serviceProviderEmail: req.body.serviceProviderEmail,
+        serviceProviderName: req.body.serviceProviderName,
         customerEmail: req.body.customerEmail,
         jobId: req.body.jobId
     });

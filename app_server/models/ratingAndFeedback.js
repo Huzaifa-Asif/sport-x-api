@@ -17,6 +17,9 @@ const ratingAndFeedbackSchema = new schema({
     serviceProviderEmail:{
         type:String
     },
+    serviceProviderName:{
+        type:String
+    },
     customerEmail:{
         type:String
     },
