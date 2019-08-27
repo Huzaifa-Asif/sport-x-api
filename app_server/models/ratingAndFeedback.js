@@ -6,7 +6,7 @@ const schema = mongoose.Schema;
 
 const ratingAndFeedbackSchema = new schema({
     rating:{
-        type:String
+        type:Number
     },
     feedback:{
         type:String
