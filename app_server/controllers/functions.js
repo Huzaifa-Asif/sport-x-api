@@ -9,8 +9,6 @@ admin.initializeApp({
   });
 
 
-var fcm = require('fcm-notification');
-var FCM = new fcm('./app_server/firebasekey.json');
 
 
 
