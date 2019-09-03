@@ -11,13 +11,49 @@ var cors = require('cors')
 
 var app = express();
 app.use(cors())
+
 //app.use(express.static(__dirname+'/client'));
 
 // var fcm = require('fcm-notification');
 // var FCM = new fcm('./app_server/firebasekey.json');
 
+
+
+// module.exports.notification = function(title, body, token) {
+
+//   let title_ = title;
+//   let body_ = body;
+//   let token_ = token;
+
+//   var message = {
+//       data: { //This is only optional, you can send any data
+//           score: '850',
+//           time: '2:45'
+//       },
+//       notification: {
+//           title: title_,
+//           body: body_
+//       },
+//       token: token_
+//   };
+
+//   FCM.send(message, function (err, response) {
+//       if (err) {
+//           console.log('error found', err);
+//       } else {
+//           console.log('response here', response);
+//       }
+//   })
+
+// }
+// var FCM = new fcm('./app_server/sportx-demo-key.json');
+
+//test app toke
 // var token = 'dIRWMek0-u4:APA91bEnBkCua42fujkqtc8P653BfyH9jR_0MN-d7kmiHu0dF04wfjfyl4pxrhoY4Up1SXQBElvs2D5QcH5fuV13L9nYckBEMKkzLf_Z67srZdGNzfn-lPc2uQNAL4_iNGS94yIT93dP';
- 
+
+// live app token
+// var token ='cixsy29X_yE:APA91bENyIltSbpEfoocznoPSJpbU6aarFPWQWN8lvVSx6WR9Qe1bKgwsMYBrzSWiRmI27gdddSRqPG9mmuyurJ5IrInH2OG6qMwSfrsuwvLw9_2CL5rTI2soOx5aTZy3icwerxJQufQ'
+
 // var message = {
 //   data: {    //This is only optional, you can send any data
 //       score: '850',

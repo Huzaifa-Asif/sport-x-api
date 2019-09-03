@@ -2,6 +2,11 @@ const cloudinary = require('cloudinary');
 var customer =require('../models/customer.js');
 var serviceProvider=require('../models/serviceProvider.js');
 
+var fcm = require('fcm-notification');
+var FCM = new fcm('./app_server/firebasekey.json');
+
+
+
 module.exports.uploadPicture= async (base64) =>
 {
     var uploadString="data:image/png;base64,"+base64;
@@ -83,20 +88,25 @@ module.exports.login = (email,password,res) => {
 }
 
 
-module.exports.notification = (title, body, token) => {
 
+module.exports.notification = function(title, body, token) {
+
+    let title_ = title;
+    let body_ = body;
+    let token_ = token;
+  
     var message = {
         data: { //This is only optional, you can send any data
             score: '850',
             time: '2:45'
         },
         notification: {
-            title: title,
-            body: body
+            title: title_,
+            body: body_
         },
-        token: token
+        token: token_
     };
-
+  
     FCM.send(message, function (err, response) {
         if (err) {
             console.log('error found', err);
@@ -104,5 +114,5 @@ module.exports.notification = (title, body, token) => {
             console.log('response here', response);
         }
     })
-
-}
+  
+  }
