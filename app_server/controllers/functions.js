@@ -81,3 +81,28 @@ module.exports.login = (email,password,res) => {
         }
     });
 }
+
+
+module.exports.notification = (title, body, token) => {
+
+    var message = {
+        // data: { //This is only optional, you can send any data
+        //     score: '850',
+        //     time: '2:45'
+        // },
+        notification: {
+            title: title,
+            body: body
+        },
+        token: token
+    };
+
+    FCM.send(message, function (err, response) {
+        if (err) {
+            console.log('error found', err);
+        } else {
+            console.log('response here', response);
+        }
+    })
+
+}
