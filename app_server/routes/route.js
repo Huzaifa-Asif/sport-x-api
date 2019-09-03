@@ -482,11 +482,11 @@ router.post('/add_bookingDetails', function (req, res) {
                 else  {
 
                     let token = serviceProvider.token;
-                    console.log(token);
+                    
                     let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
     
                     
-                    functions.notification("SPORT-X",body,token)
+                    functions.notification("New Booking Notification",body,token)
     
                 }
                 var result = bookingDetails.toObject();
@@ -544,8 +544,64 @@ router.delete('/delete_bookingDetails/:id', function (req, res) {
 
 
 
+// // Update Booking Status
+// router.patch('/update_bookingState/:id', bookingDetails.updateBookingState);
+
 // Update Booking Status
-router.patch('/update_bookingState/:id', bookingDetails.updateBookingState);
+router.patch('/update_bookingState/:id', function(req,res)
+{
+    let id=req.params.id;
+    let state=req.body.state;
+    console.log(state);
+    bookingDetails.updateBookingState(id,state,function(err,bookingDetails)
+    {
+        if(err)
+        {
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else
+        {
+            customer.getCustomerByEmail(bookingDetails.customerEmail,function(err,customer)
+            {
+                if(err)
+                {
+                    return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                    });
+                }
+                else
+                {
+                    let token=customer.token;
+                    if(state=="accepted")
+                    {
+                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        functions.notification("Booking Accepted",body,token)
+                    }
+                    else if(state==("completed"))
+                    {
+                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        functions.notification("Booking Completed",body,token)
+                    }
+                    else if(state==("canceled"))
+                    {
+                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        functions.notification("Booking Cancelled",body,token)
+                    }
+                    
+                    res.json(
+                        {
+                            status: "success",
+                            message: "State Changed"
+                        });
+                }
+            })
+        }
+    })
+});
 
 // Pending Bookings of Vendor
 router.get('/serviceProviderPendingBookings/:email', bookingDetails.serviceProviderPendingBookings);
