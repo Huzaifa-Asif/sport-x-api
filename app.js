@@ -17,7 +17,6 @@ app.use(cors())
 // var FCM = new fcm('./app_server/firebaseauthkey.json');
 
 
-
 // module.exports.notification = function(title, body, token) {
 
 //   let title_ = title;
