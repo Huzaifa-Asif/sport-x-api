@@ -576,6 +576,7 @@ router.patch('/update_bookingState/:id', function(req,res)
                 else
                 {
                     let token=customer.token;
+                    
                     if(state=="accepted")
                     {
                         let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
