@@ -13,6 +13,31 @@ var app = express();
 app.use(cors())
 //app.use(express.static(__dirname+'/client'));
 
+var fcm = require('fcm-notification');
+var FCM = new fcm('./app_server/firebasekey.json');
+
+var token = 'dIRWMek0-u4:APA91bEnBkCua42fujkqtc8P653BfyH9jR_0MN-d7kmiHu0dF04wfjfyl4pxrhoY4Up1SXQBElvs2D5QcH5fuV13L9nYckBEMKkzLf_Z67srZdGNzfn-lPc2uQNAL4_iNGS94yIT93dP';
+ 
+var message = {
+  data: {    //This is only optional, you can send any data
+      score: '850',
+      time: '2:45'
+  },
+  notification:{
+      title : 'Sport-X',
+      body : 'Welcome'
+  },
+  token : token
+  };
+
+FCM.send(message, function(err, response) {
+if(err){
+  console.log('error found', err);
+}else {
+  console.log('response here', response);
+}
+})
+
 // Set up mongoose connection
 let dev_db_url = 'mongodb+srv://sportx8580:huzaifa8580@sportx-yjlsv.mongodb.net/sportx?retryWrites=true';
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
