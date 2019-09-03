@@ -252,6 +252,10 @@ module.exports.addServiceProvider = async (serviceProviderform, callback) => {
     {
         record.picture_5="";
     }
+    if(!serviceProviderform.token)
+    {
+        record.token="";
+    }
 
     record.save(callback);
 }

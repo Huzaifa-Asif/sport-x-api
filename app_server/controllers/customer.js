@@ -95,6 +95,10 @@ module.exports.addCustomer = async (customerform, callback) => {
     {
         record.name="";
     }
+    if(!customerform.token)
+    {
+        record.token="";
+    }
 
     record.save(callback);
 }

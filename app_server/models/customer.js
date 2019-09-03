@@ -28,7 +28,10 @@ const customerSchema = mongoose.Schema({
     {
 		type: String,
 		default:"approved"
-    }
+	},
+	token:{
+		type: String
+	}
 });
 customerSchema.methods.hashPassword = function(password){
 	return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
