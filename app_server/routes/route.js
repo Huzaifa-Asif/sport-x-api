@@ -458,34 +458,43 @@ router.delete('/delete_serviceCategory/:name', function (req, res) {
 //Add booking Details
 router.post('/add_bookingDetails', function (req, res) {
     var bookingDetailsform = req.body;
-    bookingDetails.addBookingDetails(bookingDetailsform, function (err, bookingDetails) {
-        if (err) {
+    bookingDetails.addBookingDetails(bookingDetailsform, function (err, bookingDetails) 
+    {
+        if (err) 
+        {
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
                 status: false
             });
-        } else {
+        } 
+        else 
+        {
+            console.log(bookingDetails.serviceProviderEmail)
+            serviceProvider.getServiceProviderByEmail(bookingDetails.serviceProviderEmail,function(err,serviceProvider)
+            {
+                if(err)
+                {
+                    return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                    });
+                }
+                else  {
 
-            serviceProvider.getServiceProviderByEmail(bookingDetails.serviceProviderEmail);
+                    let token = serviceProvider.token;
+                    console.log(token);
+                    let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+    
+                    
+                    functions.notification("SPORT-X",body,token)
+    
+                }
+                var result = bookingDetails.toObject();
+                result.status = true;
+                return res.json(result);
+            });
 
-            if (err) {
-                return res.status(500).json({
-                    Message: "Error in Connecting to DB",
-                    status: false
-                });
-            } else {
-
-                let token = serviceProvider.token;
-                
-                let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
-
-                console.log("token:"+token+" body:"+body)
-                functions.notification("SPORT-X",body,token)
-
-            }
-            var result = bookingDetails.toObject();
-            result.status = true;
-            return res.json(result);
+            
         }
     });
 

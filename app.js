@@ -11,10 +11,10 @@ var cors = require('cors')
 
 var app = express();
 app.use(cors())
-//app.use(express.static(__dirname+'/client'));
+// app.use(express.static(__dirname+'/client'));
 
 // var fcm = require('fcm-notification');
-// var FCM = new fcm('./app_server/firebasekey.json');
+// var FCM = new fcm('./app_server/firebaseauthkey.json');
 
 // var token = 'dIRWMek0-u4:APA91bEnBkCua42fujkqtc8P653BfyH9jR_0MN-d7kmiHu0dF04wfjfyl4pxrhoY4Up1SXQBElvs2D5QcH5fuV13L9nYckBEMKkzLf_Z67srZdGNzfn-lPc2uQNAL4_iNGS94yIT93dP';
  
