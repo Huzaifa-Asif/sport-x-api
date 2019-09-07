@@ -125,3 +125,16 @@ module.exports.customerCompletedBookings = (req, res) => {
         }));
 }
 
+// Get Total Completed bookings By serviceProviderEmail
+module.exports.getTotalBookings = async(email) =>  {
+    let totalBookings;
+    await 
+    bookingDetails
+    .find({serviceProviderEmail:email})
+    .where('state').equals('completed')
+    .exec()
+    .then(result=>totalBookings=result.length)
+    .catch(err=>console.log(err));
+    return totalBookings;
+}
+

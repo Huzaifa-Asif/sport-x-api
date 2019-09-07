@@ -1,5 +1,8 @@
-var serviceProvider=require('../models/serviceProvider.js');
-var functions =require('../controllers/functions.js');
+const serviceProvider=require('../models/serviceProvider.js');
+const functions =require('../controllers/functions.js');
+const bookingDetails =require('../controllers/bookingDetails.js');
+const ratingAndFeedback =require('../controllers/ratingAndFeedback.js');
+const haversine = require('haversine');
 
 // Get ServiceProvider
 module.exports.getServiceProvider = (callback, limit) => {
@@ -388,4 +391,68 @@ module.exports.updateServiceProvider = async (email, serviceProviderform, option
 module.exports.removeServiceProvider = (id, callback) => {
     var query = {_id: id};
     serviceProvider.remove(query, callback);
+}
+
+// Compare Service Providers
+module.exports.compareServiceProviders = (email1,email2 ,location,req,res) =>  {
+    serviceProvider.
+    find({email: {$in: [email1, email2]}}).
+    where('state').equals('approved').
+    exec()
+    .then(async function(result)
+    {
+        if(result.length<2 )
+        {
+            return res.status(500).json({Message:"Selected service providers are less than 2",status:false});    
+        }
+        else if(result.length<2 )
+        {
+            return res.status(500).json({Message:"Selected service providers are greater than 2",status:false});    
+        }
+        else
+        {
+            let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                //Get average and Total Ratings
+                let avgRating=await ratingAndFeedback.findAvgRating(result[i].email).catch(err=>
+                    {
+                    console.log(err);
+                    return res.status(500).json({Message:"Error in Fetching Ratings",status:false});
+                    }); 
+                
+                //Get Total Bookings
+                let totalBookings=await bookingDetails.getTotalBookings(result[i].email).catch(err=>
+                    {
+                    console.log(err);
+                    return res.status(500).json({Message:"Error in Fetching Bookings",status:false});
+                    }); 
+                
+                //Calculate Distance Using Haversine
+                const start = {
+                        latitude: result[i].location.lat,
+                        longitude: result[i].location.long
+                      }
+                      
+                const end = {
+                        latitude: location.lat,
+                        longitude: location.long
+                      }
+                let distance=haversine(start,end);
+                
+                //Preparing Result
+                finalResult[i]=result[i].toObject();
+                finalResult[i].avgRating=avgRating.avg;
+                finalResult[i].totalRatings=avgRating.total;
+                finalResult[i].distance=distance;
+                finalResult[i].totalBookings=totalBookings;
+            }
+            return res.json(finalResult);
+        }
+        
+    }).catch(err=>
+        {
+        console.log(err);
+        return res.status(500).json({Message:"Error in Connecting to DB",status:false});
+        });    
 }

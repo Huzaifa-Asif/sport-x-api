@@ -74,3 +74,26 @@ exports.findRating = (req, res) => {
         res.send("something went wrong!")
     })
 }
+
+
+//Find Total Ratings and Average Rating by service Provider email
+exports.findAvgRating=async(email)=>
+{
+    let avg=0,total;
+    await ratingAndFeedback.find({serviceProviderEmail:email})
+    .exec()
+    .then(result=>
+        {
+            total=result.length;
+            for(let i=0;i<result.length;i++)
+            {
+                avg+=result[i].rating;
+            }
+            avg=avg/result.length;
+        })
+        .catch(err=> console.log(err))
+    return avgRating={
+            avg:avg,
+            total:total
+        }
+}

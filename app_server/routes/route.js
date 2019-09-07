@@ -1318,6 +1318,12 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
 });
 
 
+//Compare Service Providers
+router.post('/compare', function (req, res) {
+    serviceProvider.compareServiceProviders(req.body.email1,req.body.email2,req.body.location,req, res);
+});
+
+
 
 
 module.exports = router;
