@@ -20,6 +20,9 @@ const teamSchema = new schema({
     },
     adderEmail:{
         type:String
+    },
+    teamContact:{
+        type:String
     }
 })
 
