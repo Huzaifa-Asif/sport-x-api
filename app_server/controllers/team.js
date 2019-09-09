@@ -23,14 +23,7 @@ module.exports.addTeam = (teamform, callback) => {
 // Update team
 module.exports.updateTeam = (id, teamform, options, callback) => {
     var query = {_id: id};
-    var update = {
-        name: teamform.name,
-        players:teamform.players,
-        tournamentId: teamform.tournamentId,
-        adderEmail: teamform.adderEmail
-    }
-
-    team.findOneAndUpdate(query, update, options, callback);
+    team.findOneAndUpdate(query, teamform, options, callback);
 }
 
 // Delete team
