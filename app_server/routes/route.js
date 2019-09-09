@@ -849,7 +849,7 @@ router.patch('/update_team/:id', function (req, res) {
 //Delete Team
 router.delete('/delete_team/:id', function (req, res) {
     var id = req.params.id;
-    team.removeTeam(id, function (err) {
+    team.removeTeam(id, function (err,result) {
         if (err) {
             console.log(err);
             return res.status(500).json({
@@ -857,9 +857,17 @@ router.delete('/delete_team/:id', function (req, res) {
                 status: false
             });
         }
+        else if(result)
+        {
+            return res.json({
+                status: true
+            });    
+        }
+        else{
         return res.json({
-            status: true
+            status: false
         });
+    }
     });
 
 });
@@ -895,6 +903,29 @@ router.get('/get_team_by_tournament/:id', function (req, res) {
     });
 
 });
+
+
+
+
+// Create  Team Fixtures in Tournament
+router.post('/create_fixtures_tournament', function (req, res) {
+    var tournamentId = req.body.tournamentId;
+
+    team.addTeam(addTeamForm, function (err, team) {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        var result = team.toObject();
+        result.status = true;
+        return res.json(result);
+    });
+
+});
+
 
 //Add ExpenseCategory
 router.post('/add_expenseCategory', function (req, res) {
