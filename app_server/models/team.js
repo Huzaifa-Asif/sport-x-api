@@ -7,7 +7,7 @@ const schema = mongoose.Schema;
 const teamSchema = new schema({
     state:{
         type:String,
-        default:"Pending"
+        default:"pending"
     },
     name:{
         type:String
