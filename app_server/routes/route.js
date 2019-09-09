@@ -544,9 +544,6 @@ router.delete('/delete_bookingDetails/:id', function (req, res) {
 
 
 
-// // Update Booking Status
-// router.patch('/update_bookingState/:id', bookingDetails.updateBookingState);
-
 // Update Booking Status
 router.patch('/update_bookingState/:id', function(req,res)
 {
@@ -1074,7 +1071,7 @@ router.get('/get_expense_by_category', function (req, res) {
 });
 
 
-//Delete expenseCategory
+//Delete expense 
 router.delete('/delete_expense/:id', function (req, res) {
     var id = req.params.id;
     expense.removeExpense(id, function (err) {
@@ -1213,20 +1210,6 @@ router.get('/get_conversation_by_id/:id', function (req, res) {
     });
 });
 
-// //Get Conversation by email
-// router.get('/get_conversation_by_email/:email', function (req, res) {
-//     conversation.getConversationByEmail(req.params.email,function (err, result) {
-//         if (err)
-//         {
-//             console.log(err);
-//             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
-//         }
-//         else
-//         {
-//             return res.json(result);
-//         }
-//     });
-// });
 
 //Get Active Conversation by email
 router.get('/get_conversation_by_email_active/:email', function (req, res) {
