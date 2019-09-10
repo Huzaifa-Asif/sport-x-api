@@ -5,7 +5,23 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cloudinary = require('cloudinary');
 const mongoose = require('mongoose');
-var routeRouter = require('./app_server/routes/route.js');
+
+// routes
+var routeAdmin = require('./app_server/routes/route.admin.js');
+var routeBookingDetails = require('./app_server/routes/route.bookingDetails.js');
+var routeConversation = require('./app_server/routes/route.conversation.js');
+var routeCustomer = require('./app_server/routes/route.customer.js');
+var routeExpense = require('./app_server/routes/route.expense.js');
+var routeExpenseCategory = require('./app_server/routes/route.expenseCategory.js');
+var routeMessage = require('./app_server/routes/route.message.js');
+var routeRatingAndFeedback = require('./app_server/routes/route.ratingAndFeedback.js');
+var routeRevenue = require('./app_server/routes/route.revenue.js');
+var routeRevenueCategory = require('./app_server/routes/route.revenueCategory.js');
+var routeServiceCategory = require('./app_server/routes/route.serviceCategory.js');
+var routeShared = require('./app_server/routes/route.shared.js');
+var routeTeam = require('./app_server/routes/route.team.js');
+var routeTournament = require('./app_server/routes/route.tournament.js');
+
 
 var cors = require('cors')
 
@@ -14,63 +30,6 @@ app.use(cors())
 
 // app.use(express.static(__dirname+'/client'));
 
-// var fcm = require('fcm-notification');
-// var FCM = new fcm('./app_server/firebaseauthkey.json');
-
-// module.exports.notification = function(title, body, token) {
-
-//   let title_ = title;
-//   let body_ = body;
-//   let token_ = token;
-
-//   var message = {
-//       data: { //This is only optional, you can send any data
-//           score: '850',
-//           time: '2:45'
-//       },
-//       notification: {
-//           title: title_,
-//           body: body_
-//       },
-//       token: token_
-//   };
-
-//   FCM.send(message, function (err, response) {
-//       if (err) {
-//           console.log('error found', err);
-//       } else {
-//           console.log('response here', response);
-//       }
-//   })
-
-// }
-// var FCM = new fcm('./app_server/sportx-demo-key.json');
-
-//test app toke
-// var token = 'dIRWMek0-u4:APA91bEnBkCua42fujkqtc8P653BfyH9jR_0MN-d7kmiHu0dF04wfjfyl4pxrhoY4Up1SXQBElvs2D5QcH5fuV13L9nYckBEMKkzLf_Z67srZdGNzfn-lPc2uQNAL4_iNGS94yIT93dP';
-
-// live app token
-// var token ='cixsy29X_yE:APA91bENyIltSbpEfoocznoPSJpbU6aarFPWQWN8lvVSx6WR9Qe1bKgwsMYBrzSWiRmI27gdddSRqPG9mmuyurJ5IrInH2OG6qMwSfrsuwvLw9_2CL5rTI2soOx5aTZy3icwerxJQufQ'
-
-// var message = {
-//   data: {    //This is only optional, you can send any data
-//       score: '850',
-//       time: '2:45'
-//   },
-//   notification:{
-//       title : 'Sport-X',
-//       body : 'Welcome'
-//   },
-//   token : token
-//   };
-
-// FCM.send(message, function(err, response) {
-// if(err){
-//   console.log('error found', err);
-// }else {
-//   console.log('response here', response);
-// }
-// })
 
 // Set up mongoose connection
 let dev_db_url = 'mongodb+srv://sportx8580:huzaifa8580@sportx-yjlsv.mongodb.net/sportx?retryWrites=true';
@@ -89,8 +48,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routeRouter);
-
+// routes call
+app.use('/', routeAdmin);
+app.use('/', routeBookingDetails);
+app.use('/', routeConversation);
+app.use('/', routeCustomer);
+app.use('/', routeExpense);
+app.use('/', routeExpenseCategory);
+app.use('/', routeMessage);
+app.use('/', routeRatingAndFeedback);
+app.use('/', routeRevenue);
+app.use('/', routeRevenueCategory);
+app.use('/', routeServiceCategory);
+app.use('/', routeShared);
+app.use('/', routeTeam);
+app.use('/', routeTournament);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
