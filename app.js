@@ -49,20 +49,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes call
-app.use('/', routeAdmin);
-app.use('/', routeBookingDetails);
-app.use('/', routeConversation);
-app.use('/', routeCustomer);
-app.use('/', routeExpense);
-app.use('/', routeExpenseCategory);
-app.use('/', routeMessage);
-app.use('/', routeRatingAndFeedback);
-app.use('/', routeRevenue);
-app.use('/', routeRevenueCategory);
-app.use('/', routeServiceCategory);
-app.use('/', routeShared);
-app.use('/', routeTeam);
-app.use('/', routeTournament);
+app.use('/admin', routeAdmin);
+app.use('/booking', routeBookingDetails);
+app.use('/conversation', routeConversation);
+app.use('/customer', routeCustomer);
+app.use('/expense', routeExpense);
+app.use('/expensecategory', routeExpenseCategory);
+app.use('/message', routeMessage);
+app.use('/ratingandfeedback', routeRatingAndFeedback);
+app.use('/revenue', routeRevenue);
+app.use('/revenuecategory', routeRevenueCategory);
+app.use('/servicecategory', routeServiceCategory);
+app.use('/shared', routeShared);
+app.use('/team', routeTeam);
+app.use('/tournament', routeTournament);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
