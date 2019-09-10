@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes call
 app.use('/admin', routeAdmin);
-app.use('/booking', routeBookingDetails);
+app.use('/bookingdetails', routeBookingDetails);
 app.use('/conversation', routeConversation);
 app.use('/customer', routeCustomer);
 app.use('/expense', routeExpense);
