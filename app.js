@@ -18,6 +18,7 @@ var routeRatingAndFeedback = require('./app_server/routes/route.ratingAndFeedbac
 var routeRevenue = require('./app_server/routes/route.revenue.js');
 var routeRevenueCategory = require('./app_server/routes/route.revenueCategory.js');
 var routeServiceCategory = require('./app_server/routes/route.serviceCategory.js');
+var routeServiceProvider = require('./app_server/routes/route.serviceProvider.js');
 var routeShared = require('./app_server/routes/route.shared.js');
 var routeTeam = require('./app_server/routes/route.team.js');
 var routeTournament = require('./app_server/routes/route.tournament.js');
@@ -49,6 +50,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes call
+app.get('/', (req, res) => {
+  res.json({
+    message: "Welcome to Sport-X Backend"
+})
+});
 app.use('/admin', routeAdmin);
 app.use('/bookingdetails', routeBookingDetails);
 app.use('/conversation', routeConversation);
@@ -60,6 +66,7 @@ app.use('/ratingandfeedback', routeRatingAndFeedback);
 app.use('/revenue', routeRevenue);
 app.use('/revenuecategory', routeRevenueCategory);
 app.use('/servicecategory', routeServiceCategory);
+app.use('/serviceprovider', routeServiceProvider);
 app.use('/shared', routeShared);
 app.use('/team', routeTeam);
 app.use('/tournament', routeTournament);

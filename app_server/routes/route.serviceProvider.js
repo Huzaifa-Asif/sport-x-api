@@ -1,8 +1,59 @@
 var express = require('express');
 var router = express.Router();
 var serviceProvider = require('../controllers/serviceProvider.js');
+var customer = require('../controllers/customer.js');
 
+// Signup for serviceProvider
+router.post('/signup_serviceProvider', function (req, res) {
+    var serviceProviderform = req.body;
+    serviceProvider.checkServiceProviderEmail(serviceProviderform.email, function (err, result) {
+        if (err)
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        else {
+            if (result)
+                return res.json({
+                    Message: "Email Already Exists",
+                    status: false
+                });
+            else {
+                customer.checkCustomerEmail(serviceProviderform.email, function (err, result) {
+                    if (err)
+                        return res.status(500).json({
+                            Message: "Error in Connecting to DB",
+                            status: false
+                        });
+                    else {
+                        if (result)
+                            return res.json({
+                                Message: "Username Already Exists",
+                                status: false
+                            });
+                        else {
+                            serviceProvider.addServiceProvider(serviceProviderform, function (err, serviceProvider) {
+                                if (err) {
+                                    return res.status(500).json({
+                                        Message: "Error in Connecting to DB",
+                                        status: false
+                                    });
+                                }
+                                var result = serviceProvider.toObject();
+                                result.status = true;
+                                return res.json(result);
 
+                            });
+                        }
+
+                    }
+                });
+
+            }
+        }
+
+    });
+});
 
 // Get All Service Provider
 router.get('/get_serviceProvider', function (req, res) {

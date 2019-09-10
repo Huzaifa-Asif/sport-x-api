@@ -3,7 +3,55 @@ var router = express.Router();
 
 
 var customer = require('../controllers/customer.js');
+var serviceProvider = require('../controllers/serviceProvider.js');
 
+// Signup for customer
+router.post('/signup_customer', function (req, res) {
+    var customerform = req.body;
+    customer.checkCustomerEmail(customerform.email, function (err, result) {
+        if (err) {
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        } else {
+            if (result) {
+                return res.json({
+                    Message: "Email Already Exists",
+                    status: false
+                });
+            } else {
+                serviceProvider.checkServiceProviderEmail(customerform.email, function (err, result) {
+                    if (err) {
+                        return res.status(500).json({
+                            Message: "Error in Connecting to DB",
+                            status: false
+                        });
+                    } else if (result) {
+                        return res.json({
+                            Message: "Email Already Exists",
+                            status: false
+                        });
+                    } else {
+                        customer.addCustomer(customerform, function (err, customer) {
+                            if (err) {
+                                return res.status(500).json({
+                                    Message: "Error in Connecting to DB",
+                                    status: false
+                                });
+                            }
+                            var result = customer.toObject();
+                            result.status = true;
+                            return res.json(result);
+
+                        });
+                    }
+                });
+            }
+        }
+
+    });
+});
 
 
 
@@ -45,6 +93,8 @@ router.patch('/update_customer/:email', function (req, res) {
     });
 
 });
+
+
 
 
 module.exports = router;

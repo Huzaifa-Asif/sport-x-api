@@ -3,6 +3,114 @@ var router = express.Router();
 
 
 var bookingDetails = require('../controllers/bookingDetails.js');
+var functions = require('../controllers/functions.js');
+var serviceProvider = require('../controllers/serviceProvider.js');
+var customer = require('../controllers/customer.js');
+
+
+//Add booking Details
+router.post('/add_bookingDetails', function (req, res) {
+    var bookingDetailsform = req.body;
+    bookingDetails.addBookingDetails(bookingDetailsform, function (err, bookingDetails) 
+    {
+        if (err) 
+        {
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        } 
+        else 
+        {
+            console.log(bookingDetails.serviceProviderEmail)
+            serviceProvider.getServiceProviderByEmail(bookingDetails.serviceProviderEmail,function(err,serviceProvider)
+            {
+                if(err)
+                {
+                    return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                    });
+                }
+                else  {
+
+                    let token = serviceProvider.token;
+                    
+                    let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+    
+                    
+                    functions.notification("New Booking Notification",body,token)
+    
+                }
+                var result = bookingDetails.toObject();
+                result.status = true;
+                return res.json(result);
+            });
+
+            
+        }
+    });
+
+
+});
+
+// Update Booking Status
+router.patch('/update_bookingState/:id', function(req,res)
+{
+    let id=req.params.id;
+    let state=req.body.state;
+    console.log(state);
+    bookingDetails.updateBookingState(id,state,function(err,bookingDetails)
+    {
+        if(err)
+        {
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else
+        {
+            customer.getCustomerByEmail(bookingDetails.customerEmail,function(err,customer)
+            {
+                if(err)
+                {
+                    return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                    });
+                }
+                else
+                {
+                    let token=customer.token;
+                    
+                    if(state=="accepted")
+                    {
+                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        functions.notification("Booking Accepted",body,token)
+                    }
+                    else if(state==("completed"))
+                    {
+                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        functions.notification("Booking Completed",body,token)
+                    }
+                    else if(state==("canceled"))
+                    {
+                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        functions.notification("Booking Cancelled",body,token)
+                    }
+                    
+                    res.json(
+                        {
+                            status: "success",
+                            message: "State Changed"
+                        });
+                }
+            })
+        }
+    })
+});
+
 
 
 //Update bookingDetails
