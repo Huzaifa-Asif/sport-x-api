@@ -21,10 +21,6 @@ module.exports.getExpenseByCategory = (email ,category,callback) =>  {
 	expense.find({serviceProviderEmail:email,expenseCategory:category}, callback);
 }
 
-// // Add expense
-// module.exports.addExpense = (expenseform, callback) => {
-// 	expense.create(expenseform, callback);
-// }
 
 // Add expense
 module.exports.addExpense = async(req,res) => {

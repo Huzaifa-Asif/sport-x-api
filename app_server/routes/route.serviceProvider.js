@@ -107,13 +107,16 @@ router.get('/search/serviceProviderByEmail/:email', function (req, res) {
                 status: false
             });
         } else if (serviceProviders)
+        {
             return res.json(serviceProviders);
+        }
         else
+        {
             return res.status(500).json({
                 Message: "No service Providers found with Names like " + req.params.name,
                 status: false
             });
-
+        }
     });
 
 });
