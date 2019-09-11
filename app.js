@@ -71,7 +71,7 @@ app.use('/serviceprovider', routeServiceProvider);
 app.use('/shared', routeShared);
 app.use('/team', routeTeam);
 app.use('/tournament', routeTournament);
-app.use('/bookingSetting',routeBookingSetting);
+app.use('/bookingsetting',routeBookingSetting);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

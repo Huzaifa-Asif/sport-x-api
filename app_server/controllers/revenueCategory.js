@@ -22,7 +22,7 @@ module.exports.addRevenueCategory = (revenueCategoryform, callback) => {
 
 // Check revenueCategory exists for Service Provider Email
 module.exports.checkRevenueCategory = (name,email ,callback) =>  {
-	revenueCategory.find({name:name,serviceProviderEmail:email}, callback);
+	revenueCategory.findOne({name:name,serviceProviderEmail:email}, callback);
 }
 
 // Update revenueCategory

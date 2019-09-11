@@ -17,7 +17,7 @@ module.exports.getExpenseCategoryByServiceProvider = (email ,callback) =>  {
 
 // Check expenseCategory exists for Service Provider Email
 module.exports.checkExpenseCategory = (name,email ,callback) =>  {
-	expenseCategory.find({name:name,serviceProviderEmail:email}, callback);
+	expenseCategory.findOne({name:name,serviceProviderEmail:email}, callback);
 }
 
 // Add expenseCategory
