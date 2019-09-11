@@ -3,7 +3,6 @@ var router = express.Router();
 var team = require('../controllers/team.js');
 
 
-
 //Add Team in Tournament
 router.post('/add_team', function (req, res) {
     var addTeamForm = req.body;
