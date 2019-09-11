@@ -58,6 +58,31 @@ router.delete('/delete_revenue/:id', function (req, res) {
 
 });
 
-
+//Get Revenue Report
+router.get('/revenue_report',function(req,res)
+{
+    revenue.getRevenueReport(req.query.email,req.query.start,req.query.end,function (err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            res.json(result);
+        }
+        else{
+            return res.status(500).json({
+                Message: "No Revenues Found",
+                status: false
+            });
+            
+        }
+    })
+});
 
 module.exports = router;

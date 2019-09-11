@@ -13,7 +13,7 @@ module.exports.getExpenseById = (id ,callback) =>  {
 
 // Get Expense By ServiceProvider
 module.exports.getExpenseByServiceProvider = (email ,callback) =>  {
-	expense.find({serviceProviderEmail:email}, callback);
+	expense.find({serviceProviderEmail:email}).sort({date:-1}).exec(callback);
 }
 
 // Get Expense By Category
@@ -74,4 +74,30 @@ module.exports.updateExpense = (id, expenseform, options, callback) => {
 module.exports.removeExpense = (id, callback) => {
     var query = {_id: id};
     expense.remove(query, callback);
+}
+
+
+//Generate Expense Report
+module.exports.getExpenseReport=(email,start,end,callback)=>
+{
+    // expense.distinct('expenseCategory',{serviceProviderEmail:email},callback);
+    expense.aggregate(
+        [
+            {
+                $match:
+                {'serviceProviderEmail': email,
+                 'date':
+                  { $gte: start,
+                    $lte: end }
+                 } },
+           {
+               
+             $group : {
+                _id : '$expenseCategory'  ,
+                categoryExpense: { $sum: '$amount' } ,
+                
+             }
+           }
+        ]
+     ).exec(callback);
 }

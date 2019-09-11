@@ -65,4 +65,32 @@ router.delete('/delete_expense/:id', function (req, res) {
 });
 
 
+//Get Expense Report
+router.get('/expense_report',function(req,res)
+{
+    expense.getExpenseReport(req.query.email,req.query.start,req.query.end,function (err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            res.json(result);
+        }
+        else{
+            return res.status(500).json({
+                Message: "No Expenses Found",
+                status: false
+            });
+            
+        }
+    })
+});
+
+
 module.exports = router;

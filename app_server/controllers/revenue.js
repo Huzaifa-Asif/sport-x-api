@@ -12,7 +12,7 @@ module.exports.getRevenueById = (id ,callback) =>  {
 
 // Get revenue By Service Provider
 module.exports.getRevenueByServiceProvider = (email ,callback) =>  {
-	revenue.find({serviceProviderEmail:email}, callback);
+	revenue.find({serviceProviderEmail:email}).sort({date:-1}).exec(callback);
 }
 
 // // Add revenue
@@ -80,4 +80,30 @@ module.exports.updateRevenue = (id, revenueform, options, callback) => {
 module.exports.removeRevenue = (id, callback) => {
     var query = {_id: id};
     revenue.remove(query, callback);
+}
+
+
+//Generate Revenue Report
+module.exports.getRevenueReport=(email,start,end,callback)=>
+{
+    
+    revenue.aggregate(
+        [
+            {
+                $match:
+                {'serviceProviderEmail': email,
+                 'date':
+                  { $gte: start,
+                    $lte: end }
+                 } },
+           {
+               
+             $group : {
+                _id : '$revenueCategory'  ,
+                categoryRevenue: { $sum: '$amount' } ,
+                
+             }
+           }
+        ]
+     ).exec(callback);
 }
