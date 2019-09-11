@@ -442,9 +442,9 @@ module.exports.compareServiceProviders = (email1,email2 ,location,req,res) =>  {
                 
                 //Preparing Result
                 finalResult[i]=result[i].toObject();
-                finalResult[i].avgRating=avgRating.avg;
+                finalResult[i].avgRating=avgRating.avg.toFixed(2);;
                 finalResult[i].totalRatings=avgRating.total;
-                finalResult[i].distance=distance;
+                finalResult[i].distance=distance.toFixed(2);
                 finalResult[i].totalBookings=totalBookings;
             }
             return res.json(finalResult);
