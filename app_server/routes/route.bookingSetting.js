@@ -5,7 +5,6 @@ var router = express.Router();
 var bookingSetting = require('../controllers/bookingSetting.js');
 
 
-
 //Add Booking Setting
 router.post('/add_bookingSetting', function (req, res) {
     var bookingSettingform = req.body;
