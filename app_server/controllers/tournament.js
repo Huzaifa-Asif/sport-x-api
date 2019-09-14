@@ -5,7 +5,6 @@ module.exports.getTournament = (callback, limit) => {
 	tournament.find(callback).limit(limit);
 }
 
-
 // Get tournament By ID
 module.exports.getTournamentById = (id ,callback) =>  {
 	tournament.findById(id, callback);
