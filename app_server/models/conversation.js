@@ -17,7 +17,10 @@ const conversationSchema = new schema({
         default:"active"
     },
     date:{
-        type:Date
+        type:String
+    },
+    time:{
+        type:String
     }
 })
 

@@ -103,3 +103,11 @@ module.exports.setConversationState = (req,res) => {
             return res.status(500).json({Message:"Error in Connecting to DB",status:false});
 		});
 }
+
+
+// conversation.update(
+//     {}, 
+//     {date : '12-09-2019',time:'00:00:00' },
+//     {multi:true}, 
+//       function(err, numberAffected){  
+//       });

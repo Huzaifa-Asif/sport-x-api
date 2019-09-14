@@ -76,3 +76,10 @@ module.exports.removemessage = (id, callback) => {
     var query = {_id: id};
     message.remove(query, callback);
 }
+
+// message.update(
+//     {}, 
+//     {date : '12-09-2019' },
+//     {multi:true}, 
+//       function(err, numberAffected){  
+//       });
