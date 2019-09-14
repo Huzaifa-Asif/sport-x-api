@@ -35,17 +35,7 @@ module.exports.addTournament = (tournamentform, callback) => {
 // Update tournament
 module.exports.updateTournament = (id, tournamentform, options, callback) => {
     var query = {_id: id};
-    var update = {
-        name: tournamentform.name,
-        teams:tournamentform.teams,
-        winningPrize: tournamentform.winningPrize,
-        entryFee: tournamentform.entryFee,
-        tournamentType:tournamentform.tournamentType,
-        maxDays: tournamentform.maxDays,
-        serviceProviderEmail: tournamentform.serviceProviderEmail
-    }
-
-    tournament.findOneAndUpdate(query, update, options, callback);
+    tournament.findOneAndUpdate(query, tournamentform, options, callback);
 }
 
 // Delete tournament
