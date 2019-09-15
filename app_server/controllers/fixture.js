@@ -16,7 +16,7 @@ module.exports.createFixture = (tournamentId, callback) => {
 		}
 		else{
 			var size=0;
-			size = Object.size(result);
+			size = result.length;
 			var teams = [];
 			var fixtureArray = [];
 			var match = {};

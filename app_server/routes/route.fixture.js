@@ -15,8 +15,8 @@ router.post('/create_fixture', function (req, res) {
             });
         }
         if(fixtureTeam){
-            var result = fixtureTeam.toObject();
-            result.status = true;
+            var result = fixtureTeam;
+            // result.status = true;
             return res.json(result);
         }
 
