@@ -23,6 +23,7 @@ var routeShared = require('./app_server/routes/route.shared.js');
 var routeTeam = require('./app_server/routes/route.team.js');
 var routeTournament = require('./app_server/routes/route.tournament.js');
 var routeBookingSetting = require('./app_server/routes/route.bookingSetting.js');
+var routeFixture = require('./app_server/routes/route.fixture.js');
 
 
 var cors = require('cors')
@@ -72,6 +73,7 @@ app.use('/shared', routeShared);
 app.use('/team', routeTeam);
 app.use('/tournament', routeTournament);
 app.use('/bookingsetting',routeBookingSetting);
+app.use('/fixture',routeFixture);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
