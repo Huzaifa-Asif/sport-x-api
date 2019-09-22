@@ -11,6 +11,11 @@ router.post('/login', function (req, res) {
 
 });
 
+// Login for both serviceProvider and Customer
+router.post('/resetPassword', function (req, res) {
+    let email = req.body.email;
+    functions.reset(email, res);
+});
 
 
 module.exports = router;

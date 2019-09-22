@@ -35,8 +35,13 @@ module.exports.createFixture = (tournamentId, callback) => {
 					team1:result(j)._id,
 					team2:result(j+1)._id	
 				}
-				fixtureArray.push(match);
+				
+				// fixtureArray.push(match,);
 			}
+
+			var books = [{ team1: "1", team2: "2", tournamentId: 5 },
+                    { team1: "3" ,team2:"4", tournamentId: 5 },
+                    { team1:"5", team2: "6", tournamentId: 5 }];
 
 			fixture.insertMany(fixtureArray, callback);
 	

@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "base64-img": "^1.0.4",
     "bcrypt-nodejs": "0.0.3",
     "cloudinary": "^1.14.0",
