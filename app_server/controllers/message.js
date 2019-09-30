@@ -9,7 +9,7 @@ module.exports.getmessageById = (id ,callback) =>  {
 
 // Get message By conversation Id
 module.exports.getMessageByConversationId = (id ,callback) =>  {
-	message.find({conversationId:id}, callback);
+	message.find({conversationId:id}).sort({date:1,time:1}).exec(callback);
 }
 
 

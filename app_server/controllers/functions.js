@@ -194,11 +194,12 @@ module.exports.notification = (title, body, token) => {
 var registrationToken = token;
 
 var message = {
-    notification: {
+    data: {
         title: title,
         body: body
         },
-  token: registrationToken
+        token: registrationToken
+        
 };
 
 // Send a message to the device corresponding to the provided
