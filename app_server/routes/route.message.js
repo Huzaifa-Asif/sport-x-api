@@ -20,7 +20,9 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
                 Message: "Error in Connecting to DB",
                 status: false
             });
-        } else {
+        } 
+        else if (result.length>0) 
+        {
             let conversationId = result[0].conversationId;
             conversation.getConversationById(conversationId, async function (err, conversation) {
                 if (err) {
@@ -73,6 +75,11 @@ router.get('/get_message_by_conversationId/:id', function (req, res) {
 
                 }
             });
+        }
+        else
+        {
+            return res.json([]);
+
         }
 
     });
