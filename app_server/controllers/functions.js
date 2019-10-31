@@ -14,7 +14,6 @@ admin.initializeApp({
 
 
 
-
 module.exports.uploadPicture= async (base64) =>
 {
     var uploadString="data:image/png;base64,"+base64;

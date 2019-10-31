@@ -57,6 +57,7 @@ app.get('/', (req, res) => {
     message: "Welcome to Sport-X Backend"
 })
 });
+
 app.use('/admin', routeAdmin);
 app.use('/bookingdetails', routeBookingDetails);
 app.use('/conversation', routeConversation);
