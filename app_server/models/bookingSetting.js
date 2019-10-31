@@ -5,9 +5,6 @@ const schema = mongoose.Schema;
 // Booking Setting Schema
 
 const bookingSettingSchema = new schema({
-    bookingType:{
-        type:String
-    },
     amount:{
         type:Number
     },
@@ -26,6 +23,13 @@ const bookingSettingSchema = new schema({
     },
     serviceProviderEmail:{
         type:String
+    },
+    wholeDayBookingAllowed:{
+        type:Boolean,
+        default:false
+    },
+    wholeDayBookingPrice:{
+        type:Number
     }
 })
 
