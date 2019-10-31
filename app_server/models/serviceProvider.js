@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 // Service Provider Schema
 
+
 const serviceProviderSchema = mongoose.Schema({
 	name:{
 		type: String,
