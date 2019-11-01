@@ -6,7 +6,6 @@ var logger = require('morgan');
 const cloudinary = require('cloudinary');
 const mongoose = require('mongoose');
 
-
 // routes
 var routeAdmin = require('./app_server/routes/route.admin.js');
 var routeBookingDetails = require('./app_server/routes/route.bookingDetails.js');
