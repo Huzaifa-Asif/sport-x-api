@@ -60,6 +60,6 @@ module.exports.updateAdmin = (id, adminform, options, callback) => {
 
 // Delete Admin   
 module.exports.removeAdmin = (id, callback) => {
-    var query = {admin_id: id};
+    var query = {_id: id};
     admin.remove(query, callback);
 }
