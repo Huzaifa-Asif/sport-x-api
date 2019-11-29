@@ -3,7 +3,7 @@ var router = express.Router();
 
 
 var bookingSetting = require('../controllers/bookingSetting.js');
-
+var serviceProvier=require('../controllers/serviceProvider.js');
 
 //Add Booking Setting
 router.post('/add_bookingSetting', function (req, res) {
@@ -16,9 +16,25 @@ router.post('/add_bookingSetting', function (req, res) {
                 status: false
             });
         }
-        var result = bookingSetting.toObject();
-        result.status = true;
-        return res.json(result);
+        else
+        {
+            serviceProvier.updateServiceProvider(bookingSettingform.serviceProviderEmail,{profile_completed:true},{new: true},function (err,serviceProvider)
+            {
+                if(err)
+                {
+                    console.log(err);
+                    return res.status(500).json(
+                        {
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                }
+                var result = bookingSetting.toObject();
+                result.status = true;
+                return res.json(result);
+            });
+        }
+        
     });
 
 });
