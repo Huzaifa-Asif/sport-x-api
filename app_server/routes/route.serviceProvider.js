@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var serviceProvider = require('../controllers/serviceProvider.js');
 var customer = require('../controllers/customer.js');
+const bookingSetting=require('../controllers/bookingSetting.js');
 
 // Signup for serviceProvider
 router.post('/signup_serviceProvider', function (req, res) {
@@ -76,19 +77,40 @@ router.get('/get_serviceProvider', function (req, res) {
 
 // Get Service Provider by category
 router.get('/search/serviceProviderByCategory/:category', function (req, res) {
-    serviceProvider.getServiceProviderByCategory(req.params.category, function (err, serviceProviders) {
+    serviceProvider.getServiceProviderByCategory(req.params.category, async function (err, serviceProviders) {
         if (err) {
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
                 status: false
             });
-        } else if (serviceProviders) {
-            let obj = {
-                status: true
-            };
-            serviceProviders.unshift(obj);
+        } 
+        else if (serviceProviders) 
+        {
+            // let finalResult=[];
+            // for(let i=0;i<serviceProviders.length;i++)
+            // {
+            //     finalResult[i]=serviceProviders[i].toObject();
+            //     finalResult[i].bookingSetting=await bookingSetting.getBookingSettingByServiceProviderSync(finalResult[i].email)
+            //     if(finalResult[i].bookingSetting===null)
+            //     {
+            //         finalResult[i].bookingSetting={
+            //             wholeDayBookingAllowed: false,
+            //             serviceProviderEmail: finalResult[i].email,
+            //             amount: 1000,
+            //             openingTime: "09:00",
+            //             closingTime: "19:00",
+            //             duration: 60,
+            //             totalGrounds: 1
+            //         }
+            //     }
+            // }
+            // return res.json(finalResult);
             return res.json(serviceProviders);
-        } else
+        
+        
+        
+        } 
+        else
             return res.status(500).json({
                 Message: "No service Providers found with the category " + req.params.category,
                 status: false
@@ -113,7 +135,7 @@ router.get('/search/serviceProviderByEmail/:email', function (req, res) {
         else
         {
             return res.status(500).json({
-                Message: "No service Providers found with Names like " + req.params.name,
+                Message: "No service Providers found with Email " + req.params.email,
                 status: false
             });
         }

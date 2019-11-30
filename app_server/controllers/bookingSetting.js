@@ -17,6 +17,12 @@ module.exports.updateBookingSetting = (email, bookingSettingform, options, callb
     bookingSetting.findOneAndUpdate(query, bookingSettingform, options, callback);
 }
 
+//Get Booking Settings By Service Provider Email Synchronously
+module.exports.getBookingSettingByServiceProviderSync= (email)=>
+{
+    return bookingSetting.findOne({serviceProviderEmail:email}).exec();
+       
+}
 
 
 

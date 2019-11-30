@@ -51,7 +51,24 @@ router.get('/get_bookingSetting_by_serviceProvider/:email', function (req, res) 
                 status: false
             });
         }
-        return res.json(result);
+        else if(result)
+        {
+            return res.json(result);
+        }
+        else
+        {
+            
+             
+                    return res.json({
+                        wholeDayBookingAllowed: false,
+                        serviceProviderEmail: finalResult[i].email,
+                        amount: 1000,
+                        openingTime: "09:00",
+                        closingTime: "19:00",
+                        duration: 60,
+                        totalGrounds: 1
+                    });
+        }
 
     });
 

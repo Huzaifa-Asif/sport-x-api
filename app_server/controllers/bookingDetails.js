@@ -7,6 +7,13 @@ module.exports.getBookingDetailsByEmail = (email, callback) => {
         exec(callback);
 }
 
+// Get bookingDetails By serviceProvider Email
+module.exports.getBookingDetailsByDate = (date, callback) => {
+    bookingDetails.
+        find({ date: date }).
+        exec(callback);
+}
+
 // Add bookingDetails
 module.exports.addBookingDetails = (bookingDetailsform, callback) => {
     bookingDetails.create(bookingDetailsform, callback);

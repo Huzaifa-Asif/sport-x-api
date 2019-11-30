@@ -15,6 +15,10 @@ const bookingDetailsSchema = new schema({
     date:{
         type:String
     },
+    price:
+    {
+        type:Number
+    },
     time:{
         type:String
     },
