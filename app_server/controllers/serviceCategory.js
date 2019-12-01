@@ -28,8 +28,6 @@ module.exports.updateServiceCategory = (name, serviceCategoryform, options, call
 // Delete serviceCategory
 module.exports.removeServiceCategory = (name, callback) => {
     var query = {name: name};
-    var filepath='uploads/'+name+'.png';
-    functions.deleteFile(filepath);
     serviceCategory.remove(query, callback);
 }
 
