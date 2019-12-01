@@ -60,8 +60,9 @@ router.get('/get_bookingSetting_by_serviceProvider/:email', function (req, res) 
             
              
                     return res.json({
+                        _id:"123",
                         wholeDayBookingAllowed: false,
-                        serviceProviderEmail: finalResult[i].email,
+                        serviceProviderEmail: req.params.email,
                         amount: 1000,
                         openingTime: "09:00",
                         closingTime: "19:00",
