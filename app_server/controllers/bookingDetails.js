@@ -46,7 +46,6 @@ module.exports.getBookingDetailsById = (id, callback) => {
 
 
 
-
 // // UPDATE BOOKING STATE
 // module.exports.updateBookingState = (req, res) => {
 //     bookingDetails.findByIdAndUpdate(req.params.id, { $set: { "state": req.body.state } })
