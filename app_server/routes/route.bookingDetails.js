@@ -226,8 +226,8 @@ router.get('/get_customerBookingdetails/:email', function (req, res) {
 });
 
 // Get Booking Details by Date
-router.get('/get_bookingdetails_by_date/:date', function (req, res) {
-    bookingDetails.getBookingDetailsByDate(req.params.date, function (err, result) {
+router.get('/get_bookingdetails_by_date/', function (req, res) {
+    bookingDetails.getBookingDetailsByDate(req.query.date,req.query.email, function (err, result) {
         if (err)
             return res.status(500).json({
                 Message: "Error in Connecting to DB",

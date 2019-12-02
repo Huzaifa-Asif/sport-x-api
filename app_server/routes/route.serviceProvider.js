@@ -260,7 +260,7 @@ router.patch('/update_serviceProvider/:email', function (req, res) {
 
 //Compare Service Providers
 router.post('/compare', function (req, res) {
-    serviceProvider.compareServiceProviders(req.body.email1,req.body.email2,req.body.location,req, res);
+    serviceProvider.compareServiceProviders(req.body.email1,req.body.email2,req.body.email3,req.body.email4,req.body.location,req, res);
 });
 
 

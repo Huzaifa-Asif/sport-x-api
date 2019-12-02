@@ -403,24 +403,15 @@ module.exports.removeServiceProvider = (id, callback) => {
 }
 
 // Compare Service Providers
-module.exports.compareServiceProviders = (email1,email2 ,location,req,res) =>  {
+module.exports.compareServiceProviders = (email1,email2 ,email3,email4,location,req,res) =>  {
+   
     serviceProvider.
-    find({email: {$in: [email1, email2]}}).
+    find({email: {$in: [email1, email2,email3,email4]}}).
     where('state').equals('approved').
     exec()
     .then(async function(result)
     {
-        if(result.length<2 )
-        {
-            return res.status(500).json({Message:"Selected service providers are less than 2",status:false});    
-        }
-        else if(result.length<2 )
-        {
-            return res.status(500).json({Message:"Selected service providers are greater than 2",status:false});    
-        }
-        else
-        {
-            let finalResult=[];
+        let finalResult=[];
             for(let i=0;i<result.length;i++)
             {
                 //Get average and Total Ratings
@@ -456,8 +447,9 @@ module.exports.compareServiceProviders = (email1,email2 ,location,req,res) =>  {
                 finalResult[i].distance=distance.toFixed(2);
                 finalResult[i].totalBookings=totalBookings;
             }
+            
             return res.json(finalResult);
-        }
+        
         
     }).catch(err=>
         {

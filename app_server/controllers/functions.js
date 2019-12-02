@@ -37,7 +37,6 @@ module.exports.uploadPicture= async (base64) =>
 module.exports.login = (email,password,res) => {
     let record=new customer();
     customer.findOne({email:email}).
-    where('state').equals('approved').
     exec(function(err,result)
     {
         if (err)
@@ -46,7 +45,11 @@ module.exports.login = (email,password,res) => {
 		}
         else if(result)
         {
-            if(record.comparePassword(password,result.password))
+            if(result.state==='blocked')
+            {
+                return res.status(500).json({Message:"You Are Currently Blocked in our system. Kindly contact our supoort team.",status:false});
+            }
+            else if(record.comparePassword(password,result.password))
             {
                 var result1 = result.toObject();
                 result1.status = true;
@@ -62,7 +65,6 @@ module.exports.login = (email,password,res) => {
         {
             let record=new serviceProvider();
             serviceProvider.findOne({email:email}).
-            where('state').equals('approved').
             exec(function(err,result)
             {
                 if (err)
@@ -71,7 +73,15 @@ module.exports.login = (email,password,res) => {
                 }
                 else if(result)
                 {
-                    if(record.comparePassword(password,result.password))
+                    if(result.state==='blocked')
+                    {
+                        return res.status(500).json({Message:"You Are Currently Blocked in our system. Kindly contact our supoort team.",status:false});
+                    }
+                    else if(result.state==='pending')
+                    {
+                        return res.status(500).json({Message:"Kindly wait for Admin Approval.",status:false});
+                    }
+                    else if(record.comparePassword(password,result.password))
                     {
                         var result1 = result.toObject();
                         result1.status = true;
@@ -191,7 +201,10 @@ module.exports.notification = (title, body, token) => {
     
    // This registration token comes from the client FCM SDKs.
 var registrationToken = token;
-
+if(!token)
+{
+    return;
+}
 var message = {
     data: {
         title: title,

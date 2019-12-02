@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var tournament = require('../controllers/tournament.js');
-
+var functions=require('../controllers/functions.js');
 
 // Get All the Tournament
 router.get('/get_tournament', function (req, res) {
@@ -52,6 +52,10 @@ router.patch('/update_tournament/:id', function (req, res) {
                 status: false
             });
         } else if (tournament) {
+            if(tournamentForm.state==='active')
+            {
+                functions.sendNotificationToAllCustomers("New Tournament Started","A tournament is starting on "+tournament.startDate)
+            }
             var result = tournament.toObject();
             result.status = true;
             return res.json(result);
