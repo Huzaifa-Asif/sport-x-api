@@ -7,6 +7,7 @@ var functions = require('../controllers/functions.js');
 var serviceProvider = require('../controllers/serviceProvider.js');
 var customer = require('../controllers/customer.js');
 
+const excel = require('node-excel-export');
 
 //Add booking Details
 router.post('/add_bookingDetails', function (req, res) {
@@ -256,5 +257,188 @@ router.get('/get_bookingDetailById/:id', function (req, res) {
 });
 
 
+
+
+// You can define styles as json object
+const styles = {
+    headerDark: {
+      fill: {
+        fgColor: {
+          rgb: '95B22D'
+        }
+      },
+      font: {
+        color: {
+          rgb: 'FFFFFFFF'
+        },
+        sz: 18,
+        bold: true,
+        underline: true
+      }
+    },
+    headerYellow: {
+        fill: {
+          fgColor: {
+            rgb: 'F7B310'
+          }
+        },
+        font: {
+          color: {
+            rgb: 'FFFFFFFF'
+          },
+          sz: 14,
+          bold: true,
+          underline: true
+        }
+      },
+    cellPink: {
+      fill: {
+        fgColor: {
+          rgb: 'FFFFCCFF'
+        }
+      }
+    },
+    cellGreen: {
+      fill: {
+        fgColor: {
+          rgb: '5BC137'
+        }
+      }
+    }
+  };
+
+  const heading = [
+    [{value: 'SPORT-X - Booking Details', style: styles.headerDark}, {value: 'b1', style: styles.headerDark}, {value: 'c1', style: styles.headerDark}],
+    ['All the Booking Details of the system are listed below, the completed bookings are green,  Pending and In-Progress bookings are yellow', 'b2', 'c2'] // <-- It can be only values
+  ];
+
+  //Here you specify the export structure
+const specification = {
+    state: { // <- the key should match the actual data key
+        displayName: 'Booking State', // <- Here you specify the column header
+        headerStyle: styles.headerYellow, // <- Header style
+        cellStyle: function(value, row) { // <- style renderer function
+  
+          return (row.state == "completed") ? styles.cellGreen : {fill: {fgColor: {rgb: 'F3D800'}}}; // <- Inline cell style is possible 
+        },
+        width: 140 // <- width in pixels
+      },
+      paymentStatus: { // <- the key should match the actual data key
+      displayName: 'Payment Status', // <- Here you specify the column header
+      headerStyle: styles.headerYellow, // <- Header style
+      width: 140 // <- width in pixels
+    },
+    price: {
+        displayName: 'Booking Price (PKR)',
+        headerStyle: styles.headerYellow,
+        width: 170 // <- width in chars (when the number is passed as string)
+    },
+    bookingType: {
+        displayName: 'Booking Type',
+        headerStyle: styles.headerYellow,
+        width: 140 // <- width in chars (when the number is passed as string)
+    },
+    date: {
+      displayName: 'Booking Date',
+      headerStyle: styles.headerYellow,
+      width: 140 // <- width in chars (when the number is passed as string)
+    },
+    time: {
+        displayName: 'Booking Time',
+        headerStyle: styles.headerYellow,
+        width: 140 // <- width in chars (when the number is passed as string)
+      },
+    serviceProviderName: {
+        displayName: 'Service Provider Name',
+        headerStyle: styles.headerYellow,
+        width: 190 // <- width in chars (when the number is passed as string)
+      },
+
+    serviceProviderNumber: {
+        displayName: 'Service Provider Number',
+        headerStyle: styles.headerYellow,
+        width: 190 // <- width in chars (when the number is passed as string)
+      },
+    serviceProviderEmail: {
+        displayName: 'Service Provider Email',
+        headerStyle: styles.headerYellow,
+        width: 190 // <- width in chars (when the number is passed as string)
+      },
+
+    customerName: {
+        displayName: 'Customer Name',
+        headerStyle: styles.headerYellow,
+        width: 140 // <- width in chars (when the number is passed as string)
+      },
+
+    customerNumber: {
+        displayName: 'Customer Number',
+        headerStyle: styles.headerYellow,
+        width: 140 // <- width in chars (when the number is passed as string)
+      },
+    customerEmail: {
+        displayName: 'Customer Eamil',
+        headerStyle: styles.headerYellow,
+        width: 140 // <- width in chars (when the number is passed as string)
+      },
+     
+
+  }
+
+// Define an array of merges. 1-1 = A:1
+// The merges are independent of the data.
+// A merge will overwrite all data _not_ in the top-left cell.
+const merges = [
+    { start: { row: 1, column: 1 }, end: { row: 1, column: 5 } },
+    { start: { row: 2, column: 1 }, end: { row: 2, column: 6 } }
+
+  ]
+
+
+// Export jobApplication by JobPostId
+router.get('/getBookingReport', function (req, res) {
+    bookingDetails.getBookingDetails( function (err, bookingReport) {
+        if (err) {
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        } else if (bookingReport) {
+          //Array of objects representing heading rows (very top)
+
+
+    const dataset = bookingReport;
+            console.log("dataset"+dataset)
+
+              // Create the excel report.
+  // This function will return Buffer
+  const report = excel.buildExport(
+    [ // <- Notice that this is an array. Pass multiple sheets to create multi sheet report
+      {
+        name: 'SportxBookingDetails', // <- Specify sheet name (optional)
+        heading: heading, // <- Raw heading array (optional)
+        merges: merges, // <- Merge cell ranges
+        specification: specification, // <- Report specification
+        data: dataset // <-- Report data
+      }
+    ]
+  );
+
+      // You can then return this straight
+res.attachment('SportxBookingDetails.xlsx'); // This is sails.js specific (in general you need to set headers)
+return res.send(report);
+            
+
+
+        } else {
+            return res.status(500).json({
+                Message: "No Job Application found",
+                status: false
+            });
+        }
+    });
+       
+
+});
 
 module.exports = router;
