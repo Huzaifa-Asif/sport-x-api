@@ -1,5 +1,7 @@
 var bookingDetails = require('../models/bookingDetails.js');
 var functions=require('./functions')
+var revenue=require('../controllers/revenue.js')
+
 // Get bookingDetails By serviceProvider Email
 module.exports.getBookingDetailsByEmail = (email, callback) => {
     bookingDetails.
@@ -50,25 +52,30 @@ module.exports.getBookingDetailsById = (id, callback) => {
 }
 
 
+//Add Revenue for booking
+module.exports.addRevenueForCompletedBooking=(id)=>
+{
+    bookingDetails.findById(id, function(err,result)
+    {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            const revenueform=
+            {revenueCategory:"Booking",
+            amount:result.price,
+            bookingId:result._id,
+            serviceProviderEmail:result.serviceProviderEmail,
+            date:result.date,
+            description:"Booking of "+result.customerName+" for "+result.bookingType +" on "+result.date
+            }
+            revenue.addRevenueForCompletedBooking(revenueform)
+        }
+    });
+}
 
-
-
-// // UPDATE BOOKING STATE
-// module.exports.updateBookingState = (req, res) => {
-//     bookingDetails.findByIdAndUpdate(req.params.id, { $set: { "state": req.body.state } })
-//         .then(() => {
-            
-//             res.json(
-//                 {
-//                     status: "success",
-//                     message: "Status Changed"
-//                 });
-
-//         }).catch(err => res.json({
-//             status: "failed",
-//             message: "Request Failed"
-//         }));
-// }
 
 // UPDATE BOOKING STATE
 module.exports.updateBookingState = (id,state,callback) => {

@@ -164,6 +164,22 @@ router.get('/search/serviceProviderByName/:name', function (req, res) {
 
 });
 
+// Get Service Provider by name
+router.get('/search/get_all_approved', function (req, res) {
+    serviceProvider.getAllApprovedServiceProviders(function (err, serviceProviders) {
+        if (err) {
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        } 
+            return res.json(serviceProviders);
+
+
+    });
+
+});
+
 
 // Get Service Provider by address
 router.get('/search/serviceProviderByAddress/:keyword', function (req, res) {

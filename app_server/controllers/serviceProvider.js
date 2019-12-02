@@ -44,6 +44,15 @@ module.exports.getServiceProviderByName = (name ,callback) =>  {
     exec(callback);
 }
 
+// Get serviceProvider By name
+module.exports.getAllApprovedServiceProviders = (callback) =>  {
+    serviceProvider.
+    find().
+    where('state').equals('approved').
+    exec(callback);
+}
+
+
 // Login
 module.exports.login = (email,password,res) => {
     let record=new serviceProvider();

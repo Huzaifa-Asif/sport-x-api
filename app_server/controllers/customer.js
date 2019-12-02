@@ -4,8 +4,8 @@ var functions =require('../controllers/functions.js');
 
 
 // Get Customer
-module.exports.getCustomer = (callback, limit) => {
-	customer.find(callback).limit(limit);
+module.exports.getCustomer = (callback) => {
+	customer.find({state:"approved"},callback);
 }
 
 // Check email exists
