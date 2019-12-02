@@ -88,6 +88,7 @@ router.get('/get_allCustomer', function (req, res) {
 
 });
 
+
 // Update Customer Profile.
 router.patch('/update_customer/:email', function (req, res) {
     var email = req.params.email;
