@@ -31,7 +31,9 @@ const messageSchema = new schema({
 })
 
 
-// const Message= module.exports = mongoose.model('Message',messageSchema);
+const Message= module.exports = mongoose.model('Message',messageSchema);
+
+
 // Message.deleteMany({conversationId:"5d41bdcc8c729b3568319168"},function(err,data)
 // {
 //     if(err)
