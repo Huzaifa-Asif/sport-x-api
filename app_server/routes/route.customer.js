@@ -55,7 +55,7 @@ router.post('/signup_customer', function (req, res) {
 
 
 
-// Get All Customer
+// Get Approved Customer
 router.get('/get_customer', function (req, res) {
     customer.getCustomer(function (err, result) {
         if (err) {
@@ -72,6 +72,21 @@ router.get('/get_customer', function (req, res) {
 
 });
 
+// Get All Customer
+router.get('/get_allCustomer', function (req, res) {
+    customer.getAllCustomer(function (err, result) {
+        if (err) {
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        } else {
+            return res.json(result);
+        }
+
+    });
+
+});
 
 // Update Customer Profile.
 router.patch('/update_customer/:email', function (req, res) {

@@ -8,6 +8,11 @@ module.exports.getCustomer = (callback) => {
 	customer.find({state:"approved"},callback);
 }
 
+// Get All Customer
+module.exports.getAllCustomer = (callback) => {
+	customer.find(callback);
+}
+
 // Check email exists
 module.exports.checkCustomerEmail = (email,callback) => {
 	customer.findOne({email:email},callback);
