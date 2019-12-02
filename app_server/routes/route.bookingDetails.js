@@ -207,6 +207,21 @@ router.get('/get_bookingdetails/:email', function (req, res) {
 
 });
 
+// Get Booking Details by Email - Customer
+router.get('/get_customerBookingdetails/:email', function (req, res) {
+    bookingDetails.getCustomerBookingDetailsByEmail(req.params.email, function (err, result) {
+        if (err)
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+
+        return res.json(result);
+
+    });
+
+});
+
 // Get Booking Details by Date
 router.get('/get_bookingdetails_by_date/:date', function (req, res) {
     bookingDetails.getBookingDetailsByDate(req.params.date, function (err, result) {
