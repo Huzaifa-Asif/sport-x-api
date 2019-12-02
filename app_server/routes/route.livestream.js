@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const livestream = require('../controllers/livestream.js');
-
+const functions=require('../controllers/functions.js');
 //Start Live Stream
 router.post('/startlivestream',function(req,res)
 {
@@ -32,6 +32,7 @@ router.post('/startlivestream',function(req,res)
                 }
                 else
                 {
+                    functions.sendNotificationToAllCustomers("New Live Stream Notification","Service Provider "+result.serviceProviderName+" is now streaming live")
                     let result1=result.toObject();
                     result1.status=true;
                     return res.json(result1);

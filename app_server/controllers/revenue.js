@@ -15,10 +15,23 @@ module.exports.getRevenueByServiceProvider = (email ,callback) =>  {
 	revenue.find({serviceProviderEmail:email}).sort({date:-1}).exec(callback);
 }
 
-// // Add revenue
-// module.exports.addRevenue = (revenueform, callback) => {
-// 	revenue.create(revenueform, callback);
-// }
+// Add revenue
+module.exports.addRevenueForCompletedBooking = (revenueform) => {
+    revenue.create(revenueform, function(err,result)
+    {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log(result)
+        }
+    });
+}
+
+
+
 
 // Add revenue
 module.exports.addrevenue = async(req,res) => {

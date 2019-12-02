@@ -214,3 +214,26 @@ admin.messaging().send(message)
 
 }
 
+//Send Notification to all customers
+module.exports.sendNotificationToAllCustomers=(title,body)=>
+{
+    customerController.getCustomer(function (err,result)
+    {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            for(let i=0;i<result.length;i++)
+            {
+                const token=result[i].token;
+                if(token)
+                {
+                    exports.notification(title,body,token)
+                }
+                
+            }
+        }
+    })
+}

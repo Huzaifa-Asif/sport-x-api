@@ -60,7 +60,7 @@ router.patch('/update_bookingState/:id', function(req,res)
     let id=req.params.id;
     let state=req.body.state;
     console.log(state);
-    bookingDetails.updateBookingState(id,state,function(err,bookingDetails)
+    bookingDetails.updateBookingState(id,state,function(err,bookingDetailsResult)
     {
         if(err)
         {
@@ -71,7 +71,8 @@ router.patch('/update_bookingState/:id', function(req,res)
         }
         else
         {
-            customer.getCustomerByEmail(bookingDetails.customerEmail,function(err,customer)
+
+            customer.getCustomerByEmail(bookingDetailsResult.customerEmail,function(err,customer)
             {
                 if(err)
                 {
@@ -86,21 +87,22 @@ router.patch('/update_bookingState/:id', function(req,res)
                     
                     if(state=="accepted")
                     {
-                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        let body = "Booking Request of: " + bookingDetailsResult.bookingType + " on: " + bookingDetailsResult.date;
                         functions.notification("Booking Accepted",body,token)
                     }
                     else if(state==("completed"))
                     {
-                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        let body = "Booking Request of: " + bookingDetailsResult.bookingType + " on: " + bookingDetailsResult.date;
                         functions.notification("Booking Completed",body,token)
+                        bookingDetails.addRevenueForCompletedBooking(id)
                     }
                     else if(state==("canceled"))
                     {
-                        let body = "Booking Request of: " + bookingDetails.bookingType + " on: " + bookingDetails.date;
+                        let body = "Booking Request of: " + bookingDetailsResult.bookingType + " on: " + bookingDetailsResult.date;
                         functions.notification("Booking Cancelled",body,token)
                     }
                     
-                    res.json(
+                    return res.json(
                         {
                             status: "success",
                             message: "State Changed"
