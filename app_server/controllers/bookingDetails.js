@@ -10,6 +10,13 @@ module.exports.getBookingDetailsByEmail = (email, callback) => {
 }
 
 // Get bookingDetails By serviceProvider Email
+module.exports.getCustomerBookingDetailsByEmail = (email, callback) => {
+    bookingDetails.
+        find({ customerEmail: email }).
+        exec(callback);
+}
+
+// Get bookingDetails By serviceProvider Email
 module.exports.getBookingDetailsByDate = (date,email, callback) => {
     bookingDetails.
         find({ date: date,serviceProviderEmail:email }).
