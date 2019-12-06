@@ -13,3 +13,4 @@ module.exports.sendEmail = (email, password) => {
         text: `Hello. your new Password is: ${password} `
     })
 }
+
