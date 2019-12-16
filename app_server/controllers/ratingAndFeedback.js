@@ -69,7 +69,7 @@ module.exports.post_rating = (req, res) => {
 }
 
 // find rating using job_Id
-exports.findRating = (req, res) => {
+module.exports.findRating = (req, res) => {
     ratingAndFeedback.find({jobId: req.params.id}).then(result => res.json(result)).catch(err => {
         res.send("something went wrong!")
     })
@@ -77,7 +77,7 @@ exports.findRating = (req, res) => {
 
 
 //Find Total Ratings and Average Rating by service Provider email
-exports.findAvgRating=async(email)=>
+module.exports.findAvgRating=async(email)=>
 {
     let avg=0,total;
     await ratingAndFeedback.find({serviceProviderEmail:email})
