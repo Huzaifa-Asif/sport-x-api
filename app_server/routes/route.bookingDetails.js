@@ -647,7 +647,7 @@ router.get('/get_bookingdetails_by_date/', function (req, res) {
 
 // Get Booking Details by Booking Id 
 router.get('/get_bookingDetailById/:id', function (req, res) {
-    bookingDetails.getBookingDetailsById(req.params.id, function (err, result) {
+    bookingDetails.getBookingDetailsById(req.params.id, async function (err, result) {
         if (err)
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
