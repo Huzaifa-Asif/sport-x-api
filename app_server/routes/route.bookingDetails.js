@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 var bookingDetails = require('../controllers/bookingDetails.js');
 var functions = require('../controllers/functions.js');
 var serviceProvider = require('../controllers/serviceProvider.js');
