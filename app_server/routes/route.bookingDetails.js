@@ -908,7 +908,6 @@ router.get('/getBookingReport', function (req, res) {
     ]
   );
   
-
       // You can then return this straight
 res.attachment('SportxBookingDetails.xlsx'); // This is sails.js specific (in general you need to set headers)
 return res.send(report);
