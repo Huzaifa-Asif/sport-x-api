@@ -77,7 +77,7 @@ router.get('/get_serviceProvider', function (req, res) {
 
 // Get Service Provider by category
 router.get('/search/serviceProviderByCategory/:category', function (req, res) {
-    serviceProvider.getServiceProviderByCategory(req.params.category, async function (err, serviceProviders) {
+    serviceProvider.getServiceProviderByCategory(req.params.category, function (err, serviceProviders) {
         if (err) {
             return res.status(500).json({
                 Message: "Error in Connecting to DB",

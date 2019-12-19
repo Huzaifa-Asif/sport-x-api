@@ -1,6 +1,7 @@
 var bookingDetails = require('../models/bookingDetails.js');
-var functions=require('./functions')
-var revenue=require('../controllers/revenue.js')
+var revenue=require('../controllers/revenue.js');
+const customer=require('../controllers/customer.js');
+const serviceProvider=require('../controllers/serviceProvider');
 
 // Get bookingDetails By serviceProvider Email
 module.exports.getBookingDetailsByEmail = (email, callback) => {
@@ -86,63 +87,98 @@ module.exports.updateBookingState = (id,state,callback) => {
 
 
 
-// PROVIDER ALL Pending JOBS
-module.exports.serviceProviderPendingBookings = (req, res) => {
-    bookingDetails.find({ $and: [{ state: "pending" }, { serviceProviderEmail: req.params.email }] })
-        .then(result => res.json(result)).catch(err => res.json({
-            status: "failed",
-            message: "Request Failed"
-        }));
+// // Service PROVIDER ALL Pending JOBS
+// module.exports.serviceProviderPendingBookings = (req, res) => {
+//     bookingDetails.find({ $and: [{ state: "pending" }, { serviceProviderEmail: req.params.email }] })
+//         .then(
+//             result => res.json(result))
+//         .catch(err => res.json({
+//             status: "failed",
+//             message: "Request Failed"
+//         }));
+// }
+
+
+// Service PROVIDER ALL Pending JOBS
+module.exports.serviceProviderPendingBookings = (email,callback) => {
+    bookingDetails.find({ $and: [{ state: "pending" }, { serviceProviderEmail: email }] }).sort({date:-1,time:-1}).exec(callback);
 }
 
 
-// PROVIDER ALL In Progress JOBS
-module.exports.serviceProviderInProgressBookings = (req, res) => {
-    bookingDetails.find({ $and: [{ state: "accepted" }, { serviceProviderEmail: req.params.email }] })
-        .then(result => res.json(result)).catch(err => res.json({
-            status: "failed",
-            message: "Request Failed"
-        }));
+// // PROVIDER ALL In Progress JOBS
+// module.exports.serviceProviderInProgressBookings = (req, res) => {
+//     bookingDetails.find({ $and: [{ state: "accepted" }, { serviceProviderEmail: req.params.email }] })
+//         .then(result => res.json(result)).catch(err => res.json({
+//             status: "failed",
+//             message: "Request Failed"
+//         }));
+// }
+
+// Service PROVIDER ALL In Progress JOBS
+module.exports.serviceProviderInProgressBookings = (email,callback) => {
+    bookingDetails.find({ $and: [{ state: "accepted" }, { serviceProviderEmail: email }] }).sort({date:-1,time:-1}).exec(callback);
 }
 
 
-// PROVIDER ALL COMPLETED JOBS
-module.exports.serviceProviderCompletedBookings = (req, res) => {
-    bookingDetails.find({ $and: [{ state: "completed" }, { serviceProviderEmail: req.params.email }] })
-        .then(result => res.json(result)).catch(err => res.json({
-            status: "failed",
-            message: "Request Failed"
-        }));
+// // PROVIDER ALL COMPLETED JOBS
+// module.exports.serviceProviderCompletedBookings = (req, res) => {
+//     bookingDetails.find({ $and: [{ state: "completed" }, { serviceProviderEmail: req.params.email }] })
+//         .then(result => res.json(result)).catch(err => res.json({
+//             status: "failed",
+//             message: "Request Failed"
+//         }));
+// }
+
+// Service PROVIDER ALL COMPLETED JOBS
+module.exports.serviceProviderCompletedBookings = (email,callback) => {
+    bookingDetails.find({ $and: [{ state: "completed" }, { serviceProviderEmail: email }] }).sort({date:-1,time:-1}).exec(callback);
 }
 
+
+
+// // CUSTOMER ALL Pending JOBS
+// module.exports.customerPendingBookings = (req, res) => {
+//     bookingDetails.find({ $and: [{ state: "pending" }, { customerEmail: req.params.email }] })
+//         .then(result => res.json(result)).catch(err => res.json({
+//             status: "failed",
+//             message: "Request Failed"
+//         }));
+// }
 
 
 // CUSTOMER ALL Pending JOBS
-module.exports.customerPendingBookings = (req, res) => {
-    bookingDetails.find({ $and: [{ state: "pending" }, { customerEmail: req.params.email }] })
-        .then(result => res.json(result)).catch(err => res.json({
-            status: "failed",
-            message: "Request Failed"
-        }));
+module.exports.customerPendingBookings = (email,callback) => {
+    bookingDetails.find({ $and: [{ state: "pending" }, { customerEmail: email }] }).sort({date:-1,time:-1}).exec(callback);
 }
 
+
+// // CUSTOMER ALL In Progress JOBS
+// module.exports.customerInProgressBookings = (req, res) => {
+//     bookingDetails.find({ $and: [{ state: "accepted" }, { customerEmail: req.params.email }] })
+//         .then(result => res.json(result)).catch(err => res.json({
+//             status: "failed",
+//             message: "Request Failed"
+//         }));
+// }
 
 // CUSTOMER ALL In Progress JOBS
-module.exports.customerInProgressBookings = (req, res) => {
-    bookingDetails.find({ $and: [{ state: "accepted" }, { customerEmail: req.params.email }] })
-        .then(result => res.json(result)).catch(err => res.json({
-            status: "failed",
-            message: "Request Failed"
-        }));
+module.exports.customerInProgressBookings = (email,callback) => {
+    bookingDetails.find({ $and: [{ state: "accepted" }, { customerEmail: email }] }).sort({date:-1,time:-1}).exec(callback)
 }
 
+// // CUSTOMER ALL Completed JOBS
+// module.exports.customerCompletedBookings = (req, res) => {
+//     bookingDetails.find({ $and: [{ state: "completed" }, { customerEmail: req.params.email }] })
+//         .then(result => res.json(result)).catch(err => res.json({
+//             status: "failed",
+//             message: "Request Failed"
+//         }));
+// }
+
+
 // CUSTOMER ALL Completed JOBS
-module.exports.customerCompletedBookings = (req, res) => {
-    bookingDetails.find({ $and: [{ state: "completed" }, { customerEmail: req.params.email }] })
-        .then(result => res.json(result)).catch(err => res.json({
-            status: "failed",
-            message: "Request Failed"
-        }));
+module.exports.customerCompletedBookings = (email,callback) => {
+    bookingDetails.find({ $and: [{ state: "completed" }, { customerEmail: email }] }).sort({date:-1,time:-1}).exec(callback);
 }
 
 // Get Total Completed bookings By serviceProviderEmail

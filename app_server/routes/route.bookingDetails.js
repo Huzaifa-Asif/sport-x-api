@@ -159,36 +159,353 @@ router.delete('/delete_bookingDetails/:id', function (req, res) {
 
 
 
-// Pending Bookings of Vendor
-router.get('/serviceProviderPendingBookings/:email', bookingDetails.serviceProviderPendingBookings);
+// // Pending Bookings of Vendor
+// router.get('/serviceProviderPendingBookings/:email', bookingDetails.serviceProviderPendingBookings);
 
-// In Progress Bookings of Vendor
-router.get('/serviceProviderInProgressBookings/:email', bookingDetails.serviceProviderInProgressBookings);
+// Pending Bookings of Service Provider
+router.get('/serviceProviderPendingBookings/:email', function(req,res)
+{
+    bookingDetails.serviceProviderPendingBookings(req.params.email,async function(err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+        }
+    });
+        
+});
 
-// Completed Bookings of Vendor
-router.get('/serviceProviderCompletedBookings/:email', bookingDetails.serviceProviderCompletedBookings);
 
+// // In Progress Bookings of Vendor
+// router.get('/serviceProviderInProgressBookings/:email', bookingDetails.serviceProviderInProgressBookings);
+
+// In Progress Bookings of Service Provider
+router.get('/serviceProviderInProgressBookings/:email', function(req,res)
+{
+    bookingDetails.serviceProviderInProgressBookings(req.params.email,async function(err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+        }
+    });
+        
+});
+
+// // Completed Bookings of Vendor
+// router.get('/serviceProviderCompletedBookings/:email', bookingDetails.serviceProviderCompletedBookings);
+
+
+// Completed Bookings of Service Provider
+router.get('/serviceProviderCompletedBookings/:email', function(req,res)
+{
+    bookingDetails.serviceProviderCompletedBookings(req.params.email,async function(err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+        }
+    });
+        
+});
+
+// // Pending Bookings of Customer
+// router.get('/customerPendingBookings/:email', bookingDetails.customerPendingBookings);
 
 // Pending Bookings of Customer
-router.get('/customerPendingBookings/:email', bookingDetails.customerPendingBookings);
+router.get('/customerPendingBookings/:email', function(req,res)
+{
+    bookingDetails.customerPendingBookings(req.params.email,async function(err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+        }
+    });
+        
+});
+
+
+// // In Progress Bookings of Customer
+// router.get('/customerInProgressBookings/:email', bookingDetails.customerInProgressBookings);
 
 // In Progress Bookings of Customer
-router.get('/customerInProgressBookings/:email', bookingDetails.customerInProgressBookings);
+router.get('/customerInProgressBookings/:email', function(req,res)
+{
+    bookingDetails.customerInProgressBookings(req.params.email,async function(err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+        }
+    });
+        
+});
+
+
+// // Completed Bookings of Customer
+// router.get('/customerCompletedBookings/:email', bookingDetails.customerCompletedBookings);
+
 
 // Completed Bookings of Customer
-router.get('/customerCompletedBookings/:email', bookingDetails.customerCompletedBookings);
+router.get('/customerCompletedBookings/:email', function(req,res)
+{
+    bookingDetails.customerCompletedBookings(req.params.email,async function(err,result)
+    {
+        if(err)
+        {
+            console.log(err);
+            return res.status(500).json({
+                Message: "Error in Connecting to DB",
+                status: false
+            });
+        }
+        else if(result)
+        {
+            let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+        }
+    });
+        
+});
+
 
 
 // Get All the Booking
 router.get('/get_booking', function (req, res) {
-    bookingDetails.getBookingDetails(function (err, result) {
+    bookingDetails.getBookingDetails(async function (err, result) {
         if (err)
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
                 status: false
             });
+            else if(result)
+            {
+                let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+            }
 
-        return res.json(result);
+        
 
     });
 
@@ -197,14 +514,43 @@ router.get('/get_booking', function (req, res) {
 
 // Get Booking Details by Email - Service Provider
 router.get('/get_bookingdetails/:email', function (req, res) {
-    bookingDetails.getBookingDetailsByEmail(req.params.email, function (err, result) {
+    bookingDetails.getBookingDetailsByEmail(req.params.email, async function (err, result) {
         if (err)
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
                 status: false
             });
 
-        return res.json(result);
+            else if(result)
+            {
+                let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+            }
 
     });
 
@@ -212,29 +558,87 @@ router.get('/get_bookingdetails/:email', function (req, res) {
 
 // Get Booking Details by Email - Customer
 router.get('/get_customerBookingdetails/:email', function (req, res) {
-    bookingDetails.getCustomerBookingDetailsByEmail(req.params.email, function (err, result) {
+    bookingDetails.getCustomerBookingDetailsByEmail(req.params.email, async function (err, result) {
         if (err)
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
                 status: false
             });
 
-        return res.json(result);
+            else if(result)
+            {
+                let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+            }
 
     });
 
 });
 
-// Get Booking Details by Date
+// Get Booking Details by Date and Email
 router.get('/get_bookingdetails_by_date/', function (req, res) {
-    bookingDetails.getBookingDetailsByDate(req.query.date,req.query.email, function (err, result) {
+    bookingDetails.getBookingDetailsByDate(req.query.date,req.query.email, async function (err, result) {
         if (err)
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
                 status: false
             });
 
-        return res.json(result);
+            else if(result)
+            {
+                let finalResult=[];
+            for(let i=0;i<result.length;i++)
+            {
+                finalResult[i]=result[i].toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult[i].customerName=customerDetails.name;
+                finalResult[i].customerNumber=customerDetails.contact;
+                finalResult[i].serviceProviderName=serviceProviderDetails.name;
+                finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+            }
+            
+            return res.json(finalResult);
+            }
 
     });
 
@@ -250,7 +654,35 @@ router.get('/get_bookingDetailById/:id', function (req, res) {
                 status: false
             });
 
-        return res.json(result);
+            else if(result)
+            {
+                let finalResult;
+            
+                finalResult=result.toObject();
+                let customerDetails=await customer.getCustomerByEmailSync(result.customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                let serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(result.serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                finalResult.customerName=customerDetails.name;
+                finalResult.customerNumber=customerDetails.contact;
+                finalResult.serviceProviderName=serviceProviderDetails.name;
+                finalResult.serviceProviderNumber=serviceProviderDetails.contact;
+            
+            
+            return res.json(finalResult);
+            }
 
     });
 
@@ -397,7 +829,7 @@ const merges = [
 
 // Export jobApplication by JobPostId
 router.get('/getBookingReport', function (req, res) {
-    bookingDetails.getBookingDetails( function (err, bookingReport) {
+    bookingDetails.getBookingDetails( async function (err, bookingReport) {
         if (err) {
             return res.status(500).json({
                 Message: "Error in Connecting to DB",
@@ -405,11 +837,63 @@ router.get('/getBookingReport', function (req, res) {
             });
         } else if (bookingReport) {
           //Array of objects representing heading rows (very top)
+    
+          let finalResult=[];
+          let customers=[];
+          let serviceProviders=[];
+          let customerFilter=[],serviceProviderFilter=[];
+          let customerDetails,serviceProviderDetails;
+          for(let i=0;i<bookingReport.length;i++)
+          {
+              finalResult[i]=bookingReport[i].toObject();
+              
+              customerFilter=customers.filter(customer => (customer.email === (bookingReport[i].customerEmail)));
+              if(customerFilter.length<1)
+              {
+                    customerDetails=await customer.getCustomerByEmailSync(bookingReport[i].customerEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                    customers.push(customerDetails);
+              }
+              else
+              {
+                  customerDetails=customerFilter[0];
 
+              }
 
-    const dataset = bookingReport;
-            console.log("dataset"+dataset)
+              serviceProviderFilter=serviceProviders.filter(serviceProvider => (serviceProvider.email === (bookingReport[i].serviceProviderEmail)));
+              if(serviceProviderFilter.length<1)
+              {
+                    serviceProviderDetails= await serviceProvider.getServiceProviderByEmailSync(bookingReport[i].serviceProviderEmail).catch(err=>
+                    {
+                        console.log(err);
+                        return res.status(500).json({
+                        Message: "Error in Connecting to DB",
+                        status: false
+                        });
+                    });
+                    serviceProviders.push(serviceProviderDetails);
+              }
+              else
+              {
+                serviceProviderDetails=serviceProviderFilter[0];
 
+              }
+              
+              
+              
+              finalResult[i].customerName=customerDetails.name;
+              finalResult[i].customerNumber=customerDetails.contact;
+              finalResult[i].serviceProviderName=serviceProviderDetails.name;
+              finalResult[i].serviceProviderNumber=serviceProviderDetails.contact;
+          }
+    const dataset = finalResult;
+           
               // Create the excel report.
   // This function will return Buffer
   const report = excel.buildExport(

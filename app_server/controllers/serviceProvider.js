@@ -36,6 +36,14 @@ module.exports.getServiceProviderByEmail = (email ,callback) =>  {
 }
 
 
+// Get serviceProvider By email synchronously (Use await for this function)
+module.exports.getServiceProviderByEmailSync = (email ) =>  {
+    return serviceProvider.
+    findOne({email: {$regex: email , $options: 'i'}}).
+    exec();
+}
+
+
 // Get serviceProvider By name
 module.exports.getServiceProviderByName = (name ,callback) =>  {
     serviceProvider.

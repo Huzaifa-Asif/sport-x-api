@@ -61,6 +61,11 @@ module.exports.getCustomerByEmail = (email ,callback) =>  {
 	customer.findOne({email:email}, callback);
 }
 
+// Get Customer By Email Synchronously (use await for this cfunction call)
+module.exports.getCustomerByEmailSync = (email) =>  {
+	return customer.findOne({email:email}).exec();
+}
+
 // Add Customer
 module.exports.addCustomer = async (customerform, callback) => {
     let record=new customer();
